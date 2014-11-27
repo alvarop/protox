@@ -4,12 +4,6 @@ import csv
 import sys
 import array
 
-# Time it takes for 8 bits to be sent
-WORD_TIME = 0.00003128
-
-# If inter-byte delay is longer than this, consider it a different packet
-CONSECUTIVE_BYTE_DELAY = 6.0
-
 largePacketsOnly = False
 
 if len (sys.argv) == 1:
@@ -27,7 +21,7 @@ with open(sys.argv[1], 'rb') as csvfile:
 	# Ignore first line
 	reader.next() 
 	
-	prevtime = 0.0
+	packet_index = 0
 
 	# print starttime
 	current_packet = array.array('B')
@@ -35,10 +29,14 @@ with open(sys.argv[1], 'rb') as csvfile:
 	dupe_count = 0
 
 	for row in reader:
-		# Timestamp is for start of byte, so we need to take packet time into account (although it varies sometimes...)
-		byte_delay = (float(row[0]) - prevtime - WORD_TIME) * 1e6
 		
-		if byte_delay > CONSECUTIVE_BYTE_DELAY:
+		# Sometimes row[1] is just ''
+		try:
+			current_index = int(row[1])
+		except:
+			current_index = -1
+		
+		if current_index != packet_index:
 			if old_packet == current_packet:
 				dupe_count += 1
 			else:
@@ -51,9 +49,9 @@ with open(sys.argv[1], 'rb') as csvfile:
 					
 					sys.stdout.write('\n')
 
-
 				dupe_count = 0
 
+			packet_index = current_index
 			old_packet = current_packet
 			current_packet = array.array('B')
 
