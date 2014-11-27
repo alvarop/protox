@@ -2,18 +2,21 @@ Misc project notes
 
 A7105 Strobe Commands
 
-0x80 - Sleep Mode
-0x90 - Idle Mode
-0xA0 - Standby Mode
-0xB0 - PLL Mode
-0xC0 - RX Mode
-0xD0 - TX Mode
-0xE0 - FIFO Write pointer reset
-0xF0 - FIFO Read pointer reset
+ CMD | Description
+---- | -----------
+0x80 | Sleep Mode
+0x90 | Idle Mode
+0xA0 | Standby Mode
+0xB0 | PLL Mode
+0xC0 | RX Mode
+0xD0 | TX Mode
+0xE0 | FIFO Write pointer reset
+0xF0 | FIFO Read pointer reset
 
 A7105 Registers
 
  Rd  |  Wr  | Description
+---- | ---- | ------------ 
 0x00 | 0x40 | Mode Register
 0x01 | 0x41 | Mode Control Register
 0x02 | 0x42 | Calibration Control Register
