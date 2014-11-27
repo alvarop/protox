@@ -8,6 +8,7 @@ This works *most* of the time, but we do get some split packets from time to tim
 I also added duplicate packet detection so we don't print the same thing over and over
 
 Input file looks like this:
+```
 4.406020080000000,41055,0x40,
 4.406054800000000,41055,0x19,
 4.406096400000000,41056,0x40,
@@ -36,8 +37,10 @@ Input file looks like this:
 4.406956480000000,41061,0x1B,
 4.406995680000000,41062,0x40,
 4.407030400000000,41062,0x1B,
+```
 
 Output looks like:
+```
 40 19  (Repeated 148 times)
 a0 
 e0 
@@ -47,3 +50,4 @@ d0
 40 1a 
 c0 
 40 19  (Repeated 148 times)
+```
