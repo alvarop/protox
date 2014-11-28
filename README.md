@@ -1,61 +1,26 @@
-Trying to reverse engineer the Proto-X radio protocol to build my own controllers (and maybe mess with others...)
+I'm trying to reverse engineer the [Proto-X](http://www.protoquad.com) radio protocol to build my own controllers (and maybe mess with others...) Similar things have been done in the past, but I figured it would be a fun learning experience. This repo has my current findings.
 
-Using a python script to process Logic captured SPI data (from CSV) to more manageable chunks
 
-See [notes.md](notes.md) for project notes and intermediate results.
+### Current Status
+I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I expor the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'
+
+So far, I have a decent understanding of the [startup](startup.md) sequence and some idea about how the remote and quadcopter [pair/sync][sync.md] together. I think I've figured out which bytes on the radio packet are used for the basic controls.
+
+All radio packets (for both pairing and control) have an 8-bit checksum. It's a fairly simple computation. I used another [python script](checksum.py) to test and verify it.
+
+Next step is to figure out the channel selection criteria and better understand the device pairing. I've ordered some radio modules to play with. Once those arrive, I should be able to build my own controller (or use my computer to do it.)
+
+See the following files for much more detailed information on each topic:
+
+
+### Files
 
 See [startup.md](startup.md) for initial configuration and channel selection
 
-See [sync.md](sync.md) for notes on device sync protocol
+See [sync.md](sync.md) for notes on device sync/pairing protocol
+
+See [notes.md](notes.md) for miscellaneous project notes and intermediate results.
 
 See [checksum.py](checksum.py) for packet checksum computation and explanation.
 
-~~Since the CS signal wasn't captured properly, relying on time between bytes to determine if byte is part of current or new 'packet'~~
-
-This works *most* of the time, but we do get some split packets from time to time.
-I also added duplicate packet detection so we don't print the same thing over and over
-
-Input file looks like this:
-```
-4.406020080000000,41055,0x40,
-4.406054800000000,41055,0x19,
-4.406096400000000,41056,0x40,
-4.406135600000000,41056,0x19,
-4.406178720000000,41057,0xA0,
-4.406216720000000,41058,0xE0,
-4.406253680000000,41059,0x05,
-4.406290560000000,41059,0x01,
-4.406327600000000,41059,0x46,
-4.406364720000000,41059,0xE4,
-4.406401760000000,41059,0x59,
-4.406438880000000,41059,0x10,
-4.406476000000000,41059,0x3F,
-4.406513040000000,41059,0x00,
-4.406550160000000,41059,0x00,
-4.406587280000000,41059,0x00,
-4.406624320000000,41059,0x00,
-4.406661440000000,41059,0x00,
-4.406698560000000,41059,0x00,
-4.406735680000000,41059,0x00,
-4.406772720000000,41059,0x00,
-4.406809840000000,41059,0x00,
-4.406847040000000,41059,0x2D,
-4.406884320000000,41060,0xD0,
-4.406921760000000,41061,0x40,
-4.406956480000000,41061,0x1B,
-4.406995680000000,41062,0x40,
-4.407030400000000,41062,0x1B,
-```
-
-Output looks like:
-```
-40 19  (Repeated 148 times)
-a0 
-e0 
-05 01 46 e4 59 10 3f 00 00 00 00 00 00 00 00 00 2d 
-d0 
-40 1b  (Repeated 26 times)
-40 1a 
-c0 
-40 19  (Repeated 148 times)
-```
+See [quadcsv.py](quadcsv.py) for script to process Saleae Logic SPI CSV data into more manageable chunks
