@@ -2,6 +2,10 @@ Trying to reverse engineer the Proto-X radio protocol to build my own controller
 
 Using a python script to process Logic captured SPI data (from CSV) to more manageable chunks
 
+See notes.md for project notes and intermediate results.
+See checksum.py for packet checksum computation and explanation.
+See sync.md for notes on device sync protocol
+
 ~~Since the CS signal wasn't captured properly, relying on time between bytes to determine if byte is part of current or new 'packet'~~
 
 This works *most* of the time, but we do get some split packets from time to time.

@@ -1,6 +1,6 @@
-Misc project notes
+= Misc project notes
 
-A7105 Strobe Commands
+== A7105 Strobe Commands
 
  CMD | Description
 ---- | -----------
@@ -13,7 +13,7 @@ A7105 Strobe Commands
 0xE0 | FIFO Write pointer reset
 0xF0 | FIFO Read pointer reset
 
-A7105 Registers
+== A7105 Registers
 
  Rd  |  Wr  | Description
 ---- | ---- | ------------ 
@@ -69,10 +69,54 @@ A7105 Registers
 0x31 | 0x71 | RScale Register
 0x32 | 0x72 | Filter test Register
 
-Documentation links:
-A7105 Datasheet - http://www.avantcom.com.tw/AVANTCOM/TC/DATA/PRODUCT/SOLVE/18_3.pdf
-STM8S003F3P6 Datasheet - http://www.st.com/web/en/resource/technical/document/datasheet/DM00024550.pdf
+== Packet Format(s)
 
-Similar Projects:
-https://bitbucket.org/PhracturedBlue/deviation/src/92e1705cf895b415ab16f6e1d7df93ee11d55afe/doc/Flysky.txt?at=default
-http://www.cloud-rocket.com/2014/07/reverse-engineering-wltoys-v929v911protocol/
+=== Sync
+Packet used during sync
+Byte | Description
+---- | -----------
+0x00 | Packet Type - (0x1, 0x2, 0x3, 0x5, 0x9, 0xA)
+0x01 | sync 0 ? - Used during sync
+0x02 | sync 1 ? - Used during sync
+0x03 | sync 2 ? - Used during sync
+0x04 | sync 3 ? - Used during sync
+0x05 | 
+0x06 | 
+0x07 | 
+0x08 | 
+0x09 | 
+0x0A | 
+0x0B | 
+0x0C | 
+0x0D | 
+0x0E | 
+0x0F | Checksum
+
+=== Control
+Packet used during flight (after sync)
+Byte | Description
+---- | -----------
+0x00 | Packet Type - 0x20?
+0x01 | 
+0x02 | Throttle (0x00 - 0xFA)
+0x03 | 
+0x04 | Twist Left(0x80-0x34) - Twist Right(0x80-0xCC)
+0x05 | 
+0x06 | Up(0x6C-0x20) - Down (0x6C-0xB8)
+0x07 | 
+0x08 | Left(0x80-0xCC) - Right (0x80-0x34)
+0x09 | 
+0x0A | 
+0x0B | 
+0x0C | 
+0x0D | 
+0x0E | 
+0x0F | Checksum
+
+== Documentation links
+* A7105 Datasheet - http://www.avantcom.com.tw/AVANTCOM/TC/DATA/PRODUCT/SOLVE/18_3.pdf
+* STM8S003F3P6 Datasheet - http://www.st.com/web/en/resource/technical/document/datasheet/DM00024550.pdf
+
+== Similar Projects:
+* https://bitbucket.org/PhracturedBlue/deviation/src/92e1705cf895b415ab16f6e1d7df93ee11d55afe/doc/Flysky.txt?at=default
+* http://www.cloud-rocket.com/2014/07/reverse-engineering-wltoys-v929v911protocol/
