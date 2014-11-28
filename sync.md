@@ -1,4 +1,4 @@
-=Device Sync
+#Device Sync
 Trying to figure out how the initial sync works.
 
 So far, the remote transmits the same packet with byte 0 being a 0x01 and seemingly random 5 bytes following.
@@ -10,11 +10,11 @@ The remote replies with the original packet, but this time byte 0 is 0x09 and by
 
 They go back an forth incrementing that number. The remote increments byte 2 while the quad increments byte 1. Once they both reach 0x09, the syncing process seems to be complete and the remote starts sending the normal control packet (with byte 0 of 0x20)
 
-==Sync captures
+##Sync captures
 
 The first byte in the capture is the A7105 register, so it's not part of the data. 0x05 is FIFO write (so TX) and 0x45 is FIFO read (so RX)
 
-===File: withquad-goodcs.csv
+###File: withquad-goodcs.csv
 ```
 05 01 82 96 d5 18 f6 00 00 00 00 00 00 00 00 00 04 
 05 01 82 96 d5 18 f6 00 00 00 00 00 00 00 00 00 04 
@@ -48,7 +48,7 @@ The first byte in the capture is the A7105 register, so it's not part of the dat
 05 20 00 00 00 80 00 6c 00 80 06 19 00 00 00 00 55 
 ```
 
-===File: UDLR-RRLL-TUTD.csv
+###File: UDLR-RRLL-TUTD.csv
 ```
 05 01 78 6a a1 a0 0b 00 00 00 00 00 00 00 00 00 d1 
 05 01 78 6a a1 a0 0b 00 00 00 00 00 00 00 00 00 d1 
@@ -83,7 +83,7 @@ The first byte in the capture is the A7105 register, so it's not part of the dat
 05 20 00 00 00 80 00 6c 00 80 06 19 00 00 00 00 55 
 ```
 
-===File: connect1.csv
+###File: connect1.csv
 ```
 05 01 5a ba e0 78 54 00 00 00 00 00 00 00 00 00 3f 
 05 01 5a ba e0 78 54 00 00 00 00 00 00 00 00 00 3f 
@@ -118,7 +118,7 @@ The first byte in the capture is the A7105 register, so it's not part of the dat
 05 20 00 00 00 80 00 6c 00 80 06 19 00 00 00 00 55 
 ```
 
-===File: connect2.csv
+###File: connect2.csv
 ```
 05 01 82 c0 ac d8 41 00 00 00 00 00 00 00 00 00 f8 
 05 01 82 c0 ac d8 41 00 00 00 00 00 00 00 00 00 f8 
@@ -152,7 +152,7 @@ The first byte in the capture is the A7105 register, so it's not part of the dat
 05 20 00 00 00 80 00 6c 00 80 06 19 00 00 00 00 55 
 ```
 
-===File: connect3.csv
+###File: connect3.csv
 This one seems to have failed initially then recovered
 ```
 05 01 82 a0 4d 08 5f 00 00 00 00 00 00 00 00 00 29 

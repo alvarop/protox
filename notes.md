@@ -1,6 +1,6 @@
-= Misc project notes
+# Misc project notes
 
-== A7105 Strobe Commands
+## A7105 Strobe Commands
 
  CMD | Description
 ---- | -----------
@@ -13,7 +13,7 @@
 0xE0 | FIFO Write pointer reset
 0xF0 | FIFO Read pointer reset
 
-== A7105 Registers
+## A7105 Registers
 
  Rd  |  Wr  | Description
 ---- | ---- | ------------ 
@@ -69,9 +69,9 @@
 0x31 | 0x71 | RScale Register
 0x32 | 0x72 | Filter test Register
 
-== Packet Format(s)
+## Packet Format(s)
 
-=== Sync
+### Sync
 
 Packet used during sync
 
@@ -94,7 +94,7 @@ Byte | Description
 0x0E | 
 0x0F | Checksum
 
-=== Control
+### Control
 
 Packet used during flight (after sync)
 
@@ -117,10 +117,10 @@ Byte | Description
 0x0E | 
 0x0F | Checksum
 
-== Documentation links
+## Documentation links
 * A7105 Datasheet - http://www.avantcom.com.tw/AVANTCOM/TC/DATA/PRODUCT/SOLVE/18_3.pdf
 * STM8S003F3P6 Datasheet - http://www.st.com/web/en/resource/technical/document/datasheet/DM00024550.pdf
 
-== Similar Projects:
-* https://bitbucket.org/PhracturedBlue/deviation/src/92e1705cf895b415ab16f6e1d7df93ee11d55afe/doc/Flysky.txt?at=default
+## Similar Projects:
+* https://bitbucket.org/PhracturedBlue/deviation/src/92e1705cf895b415ab16f6e1d7df93ee11d55afe/doc/Flysky.txt?at#default
 * http://www.cloud-rocket.com/2014/07/reverse-engineering-wltoys-v929v911protocol/
