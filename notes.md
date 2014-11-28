@@ -72,19 +72,21 @@
 == Packet Format(s)
 
 === Sync
+
 Packet used during sync
+
 Byte | Description
 ---- | -----------
 0x00 | Packet Type - (0x1, 0x2, 0x3, 0x5, 0x9, 0xA)
-0x01 | sync 0 ? - Used during sync
-0x02 | sync 1 ? - Used during sync
-0x03 | sync 2 ? - Used during sync
-0x04 | sync 3 ? - Used during sync
-0x05 | 
-0x06 | 
-0x07 | 
-0x08 | 
-0x09 | 
+0x01 | sync 0 ?
+0x02 | sync 1 ?
+0x03 | sync 2 ?
+0x04 | sync 3 ?
+0x05 | sync 4 ?
+0x06 | sync 5 ?
+0x07 | sync 6 ?
+0x08 | sync 7 ?
+0x09 | sync 8 ?
 0x0A | 
 0x0B | 
 0x0C | 
@@ -93,7 +95,9 @@ Byte | Description
 0x0F | Checksum
 
 === Control
+
 Packet used during flight (after sync)
+
 Byte | Description
 ---- | -----------
 0x00 | Packet Type - 0x20?

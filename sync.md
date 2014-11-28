@@ -15,8 +15,7 @@ They go back an forth incrementing that number. The remote increments byte 2 whi
 The first byte in the capture is the A7105 register, so it's not part of the data. 0x05 is FIFO write (so TX) and 0x45 is FIFO read (so RX)
 
 ===File: withquad-goodcs.csv
-'''
-05 01 82 96 d5 18 f6 00 00 00 00 00 00 00 00 00 04 
+'''05 01 82 96 d5 18 f6 00 00 00 00 00 00 00 00 00 04 
 05 01 82 96 d5 18 f6 00 00 00 00 00 00 00 00 00 04 
 05 01 82 96 d5 18 f6 00 00 00 00 00 00 00 00 00 04 
 45 02 82 96 d5 18 f6 00 00 00 00 00 00 00 00 00 03 
@@ -49,8 +48,7 @@ The first byte in the capture is the A7105 register, so it's not part of the dat
 '''
 
 ===File: UDLR-RRLL-TUTD.csv
-'''
-05 01 78 6a a1 a0 0b 00 00 00 00 00 00 00 00 00 d1 
+'''05 01 78 6a a1 a0 0b 00 00 00 00 00 00 00 00 00 d1 
 05 01 78 6a a1 a0 0b 00 00 00 00 00 00 00 00 00 d1 
 05 01 78 6a a1 a0 0b 00 00 00 00 00 00 00 00 00 d1 
 05 01 78 6a a1 a0 0b 00 00 00 00 00 00 00 00 00 d1 
@@ -84,8 +82,7 @@ The first byte in the capture is the A7105 register, so it's not part of the dat
 '''
 
 ===File: connect1.csv
-'''
-05 01 5a ba e0 78 54 00 00 00 00 00 00 00 00 00 3f 
+'''05 01 5a ba e0 78 54 00 00 00 00 00 00 00 00 00 3f 
 05 01 5a ba e0 78 54 00 00 00 00 00 00 00 00 00 3f 
 05 01 5a ba e0 78 54 00 00 00 00 00 00 00 00 00 3f 
 05 01 5a ba e0 78 54 00 00 00 00 00 00 00 00 00 3f 
@@ -119,8 +116,7 @@ The first byte in the capture is the A7105 register, so it's not part of the dat
 '''
 
 ===File: connect2.csv
-'''
-05 01 82 c0 ac d8 41 00 00 00 00 00 00 00 00 00 f8 
+'''05 01 82 c0 ac d8 41 00 00 00 00 00 00 00 00 00 f8 
 05 01 82 c0 ac d8 41 00 00 00 00 00 00 00 00 00 f8 
 05 01 82 c0 ac d8 41 00 00 00 00 00 00 00 00 00 f8 
 45 02 82 c0 ac d8 41 00 00 00 00 00 00 00 00 00 f7 
@@ -154,8 +150,7 @@ The first byte in the capture is the A7105 register, so it's not part of the dat
 
 ===File: connect3.csv
 This one seems to have failed initially then recovered
-'''
-05 01 82 a0 4d 08 5f 00 00 00 00 00 00 00 00 00 29 
+'''05 01 82 a0 4d 08 5f 00 00 00 00 00 00 00 00 00 29 
 05 01 82 a0 4d 08 5f 00 00 00 00 00 00 00 00 00 29 
 05 01 82 a0 4d 08 5f 00 00 00 00 00 00 00 00 00 29 
 45 02 82 a0 4d 08 5f 00 00 00 00 00 00 00 00 00 28 
