@@ -15,7 +15,7 @@
 
 ## A7105 Registers
 
- Rd  |  Wr  | Description
+ Wr  |  Rd  | Description
 ---- | ---- | ------------ 
 0x00 | 0x40 | Mode Register
 0x01 | 0x41 | Mode Control Register
