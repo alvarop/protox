@@ -7,7 +7,9 @@ This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome
 ![Remote+Quad](/images/IMG_2328.jpg)
 
 ### Current Status
-I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I export the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'
+I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I export the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'. You can see an example processed capture [here](processeddata/connect2.processed.txt).
+
+I've added the [a7105.py](a7105.py) module which allows for plaintext decoding of the A7105 radio packets. This makes reading captures much simpler, since I no longer need to look up what each register means... You can see an example decoded capture [here](processeddata/connect2.decoded.txt).
 
 So far, I have a decent understanding of the [startup](startup.md) sequence and some idea about how the remote and quadcopter [pair/sync](sync.md) together. I think I've figured out which bytes on the radio packet are used for the basic controls.
 
@@ -27,6 +29,9 @@ See [sync.md](sync.md) for notes on device sync/pairing protocol
 See [notes.md](notes.md) for miscellaneous project notes and intermediate results.
 
 See [hardware.md](hardware.md) for hardware notes (pinouts, etc...)
+
+
+See [a7105.py](a7105.py) for python module that decodes A7105 SPI packets into readable text
 
 See [checksum.py](checksum.py) for packet checksum computation and explanation.
 
