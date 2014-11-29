@@ -7,9 +7,9 @@ This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome
 ![Remote+Quad](/images/IMG_2328.jpg)
 
 ### Current Status
-I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I expor the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'
+I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I export the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'
 
-So far, I have a decent understanding of the [startup](startup.md) sequence and some idea about how the remote and quadcopter [pair\/sync][sync.md] together. I think I've figured out which bytes on the radio packet are used for the basic controls.
+So far, I have a decent understanding of the [startup](startup.md) sequence and some idea about how the remote and quadcopter [pair/sync](sync.md) together. I think I've figured out which bytes on the radio packet are used for the basic controls.
 
 All radio packets (for both pairing and control) have an 8-bit checksum. It's a fairly simple computation. I used another [python script](checksum.py) to test and verify it.
 
