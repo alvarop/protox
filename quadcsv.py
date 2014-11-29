@@ -3,6 +3,7 @@
 import csv
 import sys
 import array
+import a7105
 
 # 
 # Use this script to process Saleae Logic captured SPI data (from CSV) to more manageable chunks
@@ -53,6 +54,7 @@ import array
 #
 
 largePacketsOnly = False
+decodePackets = False
 
 if len (sys.argv) == 1:
 	print("usage: quadcsv.py filename.csv")
@@ -62,6 +64,9 @@ if len (sys.argv) == 1:
 if len(sys.argv) > 2:
 	if sys.argv[2] == 'l':
 		largePacketsOnly = True
+
+	if sys.argv[2] == 'd':
+		decodePackets = True
 
 with open(sys.argv[1], 'rb') as csvfile:
 	reader = csv.reader(csvfile)
@@ -89,8 +94,17 @@ with open(sys.argv[1], 'rb') as csvfile:
 				dupe_count += 1
 			else:
 				if (largePacketsOnly == True and len(old_packet) > 10) or (largePacketsOnly == False):	
+
+					packetString = ""
 					for byte in old_packet:
-							sys.stdout.write(format(byte, '02x') + ' ')
+						packetString += format(byte, '02x') + ' '
+
+					packetString = packetString.strip()
+
+					if decodePackets == False:
+						sys.stdout.write(packetString);
+					else:
+						sys.stdout.write(a7105.decodeSPIPacket(packetString))
 
 					if dupe_count > 0:
 						sys.stdout.write(' (Repeated ' + str(dupe_count) + ' times)')
