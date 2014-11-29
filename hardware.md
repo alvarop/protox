@@ -46,3 +46,5 @@ Datasheet - http://www.mcubemems.com/wp-content/uploads/2014/10/MC3210-Datasheet
 
 ### Hubsan HBS001
 This seems to be the main flight computer. [Hubsan](http://hubsan.com) seems to make the quad, so it's probably their own processor. The [forum post](http://www.rcgroups.com/forums/showpost.php?p=26871198&postcount=1269) I mentioned earlier suggests this is an ARM Cortex-M processor. They mention something similar to the Mini54Z, which is a Cortex-M0.
+
+The [Mini54Z](http://www.nuvoton.com/hq/products/microcontrollers/arm-cortex-m0-mcus/mini51-base-series/?__locale=en) is from [Nuvoton](http://www.nuvoton.com), which also offers foundry services. It wouldn't surprise me if they just re-branded one of their Mini54's as HBS001...
