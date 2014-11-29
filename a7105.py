@@ -25,6 +25,8 @@ import array
 STROBE_BIT = 0x80
 READ_BIT = 0x40
 
+fXTAL = 16000000.0
+
 #
 # Strobe string definitions
 #
@@ -96,6 +98,12 @@ regs[0x31] = 'RScale Register'
 regs[0x32] = 'Filter test Register'
 
 #
+# Keep last value written to register here (for better context)
+# FIFO and ID register won't work well since they are multi-byte, but that's ok
+#
+tmpRegs = array.array('B', [0]* 0x32)
+
+#
 # Custom packet processing functions
 #
 def processRSSI(packet):
@@ -161,8 +169,38 @@ def processMode(packet):
 
 	return rString;
 
+#
+# Use the previously stored PLL1-PLL5 values to compute the actual
+# radio frequency and return channel number plus frequency in MHz
+#
+def processPLL1(packet):
+	rString = ''
+
+	if (packet[0] & READ_BIT) != 0:
+		rString += 'PLL Register I = ' + format(packet[1], '02x') 
+	else:
+		DBL = (tmpRegs[0x10] >> 7) & 0x01
+		RRC = (tmpRegs[0x10] >> 5) & 0x03
+		BIP = ((tmpRegs[0x10] & 0x01) << 8) + tmpRegs[0x11]
+		BFP = (tmpRegs[0x12] << 8) + tmpRegs[0x13]
+		CHR = (tmpRegs[0x10] >> 1) & 0x0F
+		CHN = tmpRegs[0x0F]
+
+		fLO_BASE = (DBL + 1) * (fXTAL/(RRC + 1)) * (BIP + BFP/pow(2,16))
+		fCHSP = fXTAL * (DBL + 1) / 4.0 / (CHR + 1)
+
+		fOFFSET = CHN * fCHSP
+
+		fLO = fLO_BASE + fOFFSET
+
+		rString += 'CH ' + str(CHN) + ' (' + str(fLO/1000000) + 'MHz)'
+
+	return rString
+
+
 # Overwrite register functions
 regs[0x00] = processMode
+regs[0x0F] = processPLL1
 regs[0x1D] = processRSSI
 
 #
@@ -184,6 +222,8 @@ def processPacket(packetString):
 		rString += 'R '
 	else:
 		rString += 'W '
+		# Store register value for later use
+		tmpRegs[reg] = packet[1]
 
 	if reg in regs:
 		# 
