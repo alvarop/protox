@@ -32,6 +32,13 @@ Pin | Function
 ## Quadcopter
 The data from this [forum post](http://www.rcgroups.com/forums/showpost.php?p=26871198&postcount=1269) seems to match what I saw on my ProtoX.
 
+![Remote+Quad](/images/IMG_2334.jpg)
+
+### AMICCOM A7105
+2.4GHz FSK/GFSK Transciever
+
+Datasheet - http://www.avantcom.com.tw/AVANTCOM/TC/DATA/PRODUCT/SOLVE/18_3.pdf
+
 ### Invensense MPU-3050
 
 Seems to be a 3-axis MEMS gyro.
