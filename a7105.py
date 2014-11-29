@@ -19,6 +19,9 @@ import array
 # S TX Mode
 # 
 
+#
+# Constants
+# 
 STROBE_BIT = 0x80
 READ_BIT = 0x40
 
@@ -105,7 +108,61 @@ def processRSSI(packet):
 
 	return rString
 
-# Overwrite RSSI register function
+
+def processMode(packet):
+	rString = ''
+
+	if (packet[0] & READ_BIT) != 0:
+		rString = 'MODE: '
+		# FEC Flag
+		if ((packet[1] >> 6) & 0x1) == 1:
+			rString += 'FECERR '
+		else:
+			rString += 'FECOK  '
+
+		# CRC Flag
+		if ((packet[1] >> 5) & 0x1) == 1:
+			rString += 'CRCERR '
+		else:
+			rString += 'CRCOK  '
+
+		# RF Chip Enable Status
+		if ((packet[1] >> 4) & 0x1) == 1:
+			rString += 'RFEN  '
+		else:
+			rString += 'RFDIS '	
+
+		# Internal Crystal Oscillator status
+		if ((packet[1] >> 3) & 0x1) == 1:
+			rString += 'XEN  '
+		else:
+			rString += 'XDIS '
+
+		# PLL Enabled
+		if ((packet[1] >> 2) & 0x1) == 1:
+			rString += 'PLLEN  '
+		else:
+			rString += 'PLLDIS '
+
+		# TRX State Enabled
+		if ((packet[1] >> 1) & 0x1) == 1:
+			rString += 'TRXEN  '
+		else:
+			rString += 'TRXDIS '
+
+		# TRX Status
+		if ((packet[1] >> 0) & 0x1) == 1:
+			rString += 'TX '
+		else:
+			rString += 'RX '
+
+	else:
+		rString += 'Device Reset'
+
+	return rString;
+
+# Overwrite register functions
+regs[0x00] = processMode
 regs[0x1D] = processRSSI
 
 #
