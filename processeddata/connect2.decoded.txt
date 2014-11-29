@@ -1,0 +1,2025 @@
+
+W Mode Register [00]
+W ID DATA Register [55 20 10 41]
+W Mode Control Register [62]
+W Calibration Control Register [00]
+W FIFO Register I [0F]
+W FIFO Register II [C0]
+W RC OSC Register I [00]
+W RC OSC Register II [00]
+W RC OSC Register III [04]
+W CKO Pin Control Register [00]
+W GIO1 Pin Control Register I [01]
+W GIO2 Pin Control Register II [01]
+W Clock Register [05]
+W Data Rate Register [04]
+W PLL Register I [50]
+W PLL Register II [9E]
+W PLL Register III [4B]
+W PLL Register IV [00]
+W PLL Register V [00]
+W TX Register I [16]
+W TX Register II [2B]
+W Delay Register I [12]
+W Delay Register II [00]
+W RX Register [62]
+W RX Gain Register I [80]
+W RX Gain Register II [80]
+W RX Gain Register III [00]
+W RX Gain Register IV [0A]
+W RSSI Thershld Register [32]
+W ADC Control Register [C3]
+W Code Register I [07]
+W Code Register II [17]
+W Code Register III [00]
+W IF Calibration Register I [00]
+W VCO current Calibration Register [00]
+W VCO Single band Calibration Register I [00]
+W VCO Single band Calibration Register II [3B]
+W Battery detect Register [00]
+W TX test Register [17]
+W Rx DEM test Register I [47]
+W Rx DEM test Register II [80]
+W Charge Pump Current Register [03]
+W Crystal test Register [01]
+W PLL test Register [45]
+W VCO test Register I [18]
+W VCO test Register II [00]
+W IFAT Register [01]
+W RScale Register [0F]
+S Standby Mode
+W Calibration Control Register [01]
+R Calibration Control Register [01]
+R Calibration Control Register [00]
+R IF Calibration Register I [06]
+W IF Calibration Register I [13]
+W IF Calibration Register II [3B]
+W PLL Register I [00]
+S PLL Mode
+W Calibration Control Register [02]
+R Calibration Control Register [02]
+R Calibration Control Register [00]
+R IF Calibration Register I [03]
+W PLL Register I [78]
+S PLL Mode
+W Calibration Control Register [02]
+R Calibration Control Register [02]
+R Calibration Control Register [00]
+R IF Calibration Register I [03]
+W VCO Single band Calibration Register I [0B]
+S Standby Mode
+R ID DATA Register [55 20 10 41]
+W PLL Register I [A0]
+S PLL Mode
+S RX Mode
+W ADC Control Register [C3]
+W PLL Register I [14]
+S PLL Mode
+S RX Mode
+R RSSI = 0.844V
+R RSSI = 0.839V
+R RSSI = 0.830V
+R RSSI = 0.853V
+R RSSI = 0.820V
+R RSSI = 0.858V
+R RSSI = 0.834V
+R RSSI = 0.844V
+R RSSI = 0.820V
+R RSSI = 0.811V
+R RSSI = 0.834V
+R RSSI = 0.844V
+R RSSI = 0.848V
+R RSSI = 0.839V
+R RSSI = 0.830V
+W PLL Register I [1E]
+S PLL Mode
+S RX Mode
+R RSSI = 0.853V
+R RSSI = 0.848V
+R RSSI = 0.834V
+R RSSI = 0.825V
+R RSSI = 0.750V
+R RSSI = 0.745V
+R RSSI = 0.741V (Repeated 1 times)
+R RSSI = 0.834V (Repeated 1 times)
+R RSSI = 0.825V
+R RSSI = 0.816V
+R RSSI = 0.830V
+R RSSI = 0.862V
+R RSSI = 0.834V
+W PLL Register I [28]
+S PLL Mode
+S RX Mode
+R RSSI = 0.848V
+R RSSI = 0.839V
+R RSSI = 0.834V
+R RSSI = 0.830V
+R RSSI = 0.834V
+R RSSI = 0.848V
+R RSSI = 0.825V
+R RSSI = 0.844V
+R RSSI = 0.848V
+R RSSI = 0.825V
+R RSSI = 0.839V
+R RSSI = 0.844V (Repeated 1 times)
+R RSSI = 0.839V
+R RSSI = 0.830V
+W PLL Register I [32]
+S PLL Mode
+S RX Mode
+R RSSI = 0.820V (Repeated 1 times)
+R RSSI = 0.844V
+R RSSI = 0.848V
+R RSSI = 0.844V (Repeated 1 times)
+R RSSI = 0.820V
+R RSSI = 0.848V
+R RSSI = 0.834V
+R RSSI = 0.858V
+R RSSI = 0.844V (Repeated 1 times)
+R RSSI = 0.848V
+R RSSI = 0.853V
+R RSSI = 0.834V
+W PLL Register I [3C]
+S PLL Mode
+S RX Mode
+R RSSI = 0.844V
+R RSSI = 0.839V
+R RSSI = 0.825V
+R RSSI = 0.844V
+R RSSI = 0.834V (Repeated 1 times)
+R RSSI = 0.839V
+R RSSI = 0.848V
+R RSSI = 0.834V
+R RSSI = 0.844V
+R RSSI = 0.848V
+R RSSI = 0.844V
+R RSSI = 0.848V
+R RSSI = 0.834V
+R RSSI = 0.844V
+W PLL Register I [46]
+S PLL Mode
+S RX Mode
+R RSSI = 0.839V
+R RSSI = 0.844V
+R RSSI = 0.858V
+R RSSI = 0.834V
+R RSSI = 0.853V (Repeated 1 times)
+R RSSI = 0.848V
+R RSSI = 0.844V (Repeated 1 times)
+R RSSI = 0.872V
+R RSSI = 0.886V
+R RSSI = 0.848V
+R RSSI = 0.844V
+R RSSI = 0.853V
+R RSSI = 0.844V
+W PLL Register I [50]
+S PLL Mode
+S RX Mode
+R RSSI = 0.862V
+R RSSI = 0.858V
+R RSSI = 0.848V
+R RSSI = 0.830V
+R RSSI = 0.834V
+R RSSI = 0.848V
+R RSSI = 0.853V
+R RSSI = 0.848V
+R RSSI = 0.839V
+R RSSI = 0.825V
+R RSSI = 0.834V
+R RSSI = 0.858V (Repeated 1 times)
+R RSSI = 0.834V
+R RSSI = 0.825V
+W PLL Register I [5A]
+S PLL Mode
+S RX Mode
+R RSSI = 0.867V (Repeated 1 times)
+R RSSI = 0.877V
+R RSSI = 0.858V
+R RSSI = 0.839V
+R RSSI = 0.848V
+R RSSI = 0.834V
+R RSSI = 0.858V
+R RSSI = 0.830V
+R RSSI = 0.872V
+R RSSI = 0.848V (Repeated 1 times)
+R RSSI = 0.853V (Repeated 1 times)
+R RSSI = 0.844V
+W PLL Register I [64]
+S PLL Mode
+S RX Mode
+R RSSI = 0.717V
+R RSSI = 0.703V (Repeated 1 times)
+R RSSI = 0.731V
+R RSSI = 0.694V
+R RSSI = 0.722V
+R RSSI = 0.713V
+R RSSI = 0.727V
+R RSSI = 0.731V
+R RSSI = 0.694V
+R RSSI = 0.713V
+R RSSI = 0.741V
+R RSSI = 0.614V
+R RSSI = 0.741V
+R RSSI = 0.708V
+W PLL Register I [6E]
+S PLL Mode
+S RX Mode
+R RSSI = 0.853V
+R RSSI = 0.862V
+R RSSI = 0.844V
+R RSSI = 0.862V
+R RSSI = 0.877V
+R RSSI = 0.853V
+R RSSI = 0.867V
+R RSSI = 0.872V
+R RSSI = 0.745V
+R RSSI = 0.872V (Repeated 2 times)
+R RSSI = 0.895V
+R RSSI = 0.867V (Repeated 1 times)
+W PLL Register I [78]
+S PLL Mode
+S RX Mode
+R RSSI = 0.853V
+R RSSI = 0.891V
+R RSSI = 0.862V
+R RSSI = 0.347V
+R RSSI = 0.333V
+R RSSI = 0.422V
+R RSSI = 0.886V
+R RSSI = 0.881V
+R RSSI = 0.891V
+R RSSI = 0.872V
+R RSSI = 0.877V (Repeated 1 times)
+R RSSI = 0.872V
+R RSSI = 0.853V
+R RSSI = 0.867V
+W PLL Register I [82]
+S PLL Mode
+S RX Mode
+R RSSI = 0.872V
+R RSSI = 0.862V (Repeated 1 times)
+R RSSI = 0.877V
+R RSSI = 0.872V
+R RSSI = 0.867V
+R RSSI = 0.862V
+R RSSI = 0.867V
+R RSSI = 0.839V
+R RSSI = 0.881V
+R RSSI = 0.877V
+R RSSI = 0.891V
+R RSSI = 0.877V
+R RSSI = 0.886V
+R RSSI = 0.872V
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 157 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 148 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 149 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 148 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 148 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 148 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 149 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 148 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 37 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [02 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F7]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [03 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F6]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 35 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [04 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F5]
+S RX Mode
+W ID DATA Register [C0 AC D8 41]
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 42 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [02 82 C0 AC D8 41 03 07 00 00 00 00 00 00 00 ED]
+S RX Mode
+W TX test Register [1F]
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 00 AC D8 41 00 00 00 00 00 00 00 00 00 B0]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 42 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [0A 01 C0 AC D8 41 03 07 00 00 00 00 00 00 00 66]
+S RX Mode
+R Mode Register [19] (Repeated 204 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 01 AC D8 41 00 00 00 00 00 00 00 00 00 AF]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 35 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [0A 02 C0 AC D8 41 03 07 00 00 00 00 00 00 00 65]
+S RX Mode
+R Mode Register [19] (Repeated 211 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 02 AC D8 41 00 00 00 00 00 00 00 00 00 AE]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 41 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [0A 03 C0 AC D8 41 03 07 00 00 00 00 00 00 00 64]
+S RX Mode
+R Mode Register [19] (Repeated 206 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 03 AC D8 41 00 00 00 00 00 00 00 00 00 AD]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 33 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [0A 04 C0 AC D8 41 03 07 00 00 00 00 00 00 00 63]
+S RX Mode
+R Mode Register [19] (Repeated 213 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 04 AC D8 41 00 00 00 00 00 00 00 00 00 AC]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 39 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [0A 05 C0 AC D8 41 03 07 00 00 00 00 00 00 00 62]
+S RX Mode
+R Mode Register [19] (Repeated 207 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 05 AC D8 41 00 00 00 00 00 00 00 00 00 AB]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 45 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [0A 06 C0 AC D8 41 03 07 00 00 00 00 00 00 00 61]
+S RX Mode
+R Mode Register [19] (Repeated 202 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 06 AC D8 41 00 00 00 00 00 00 00 00 00 AA]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 37 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [0A 07 C0 AC D8 41 03 07 00 00 00 00 00 00 00 60]
+S RX Mode
+R Mode Register [19] (Repeated 209 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 07 AC D8 41 00 00 00 00 00 00 00 00 00 A9]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 43 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [0A 08 C0 AC D8 41 03 07 00 00 00 00 00 00 00 5F]
+S RX Mode
+R Mode Register [19] (Repeated 204 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 08 AC D8 41 00 00 00 00 00 00 00 00 00 A8]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 35 times)
+R Mode Register [18]
+S FIFO Read pointer reset
+R FIFO DATA Register [0A 09 C0 AC D8 41 03 07 00 00 00 00 00 00 00 5E]
+S RX Mode
+R Mode Register [19] (Repeated 211 times)
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [09 82 09 AC D8 41 00 00 00 00 00 00 00 00 00 A7]
+S TX Mode
+R Mode Register [1B] (Repeated 26 times)
+R Mode Register [1A]
+S RX Mode
+R Mode Register [19] (Repeated 258 times)
+W Code Register I [0F]
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [A5]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
+R Mode Register [1A]
+S RX Mode
+W PLL Register I [82]
+S PLL Mode
+S Standby Mode
+S FIFO Write pointer reset
+W FIFO DATA Register [20 00 00 00 80 00 6C 00 80 06 19 00 00 00 00 55]
+S TX Mode
+R Mode Register [1B] (Repeated 29 times)
