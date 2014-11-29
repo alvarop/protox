@@ -1,6 +1,8 @@
 # Hardware Notes
 
-## STM8S003F3P6 Pinout
+## Remote
+
+### STM8S003F3P6 Pinout
 
 I haven't checked most of the pins. Here are the ones I've hooked up to the logic analyzer so far. Will update as I find out more
 
@@ -26,3 +28,21 @@ Pin | Function
  18 | 
  19 | 
  20 | 
+
+## Quadcopter
+The data from this [forum post](http://www.rcgroups.com/forums/showpost.php?p=26871198&postcount=1269) seems to match what I saw on my ProtoX.
+
+### Invensense MPU-3050
+
+Seems to be a 3-axis MEMS gyro.
+
+Datasheet - http://www.invensense.com/mems/gyro/documents/PS-MPU-3000A.pdf
+
+### MC3210AK
+
+Markings I could see were 3210AK, but I think it's a MC3210 accelerometer from mCube
+
+Datasheet - http://www.mcubemems.com/wp-content/uploads/2014/10/MC3210-Datasheet-APS-048-0005v1.8.pdf
+
+### Hubsan HBS001
+This seems to be the main flight computer. [Hubsan](http://hubsan.com) seems to make the quad, so it's probably their own processor. The [forum post](http://www.rcgroups.com/forums/showpost.php?p=26871198&postcount=1269) I mentioned earlier suggests this is an ARM Cortex-M processor. They mention something similar to the Mini54Z, which is a Cortex-M0.
