@@ -26,6 +26,8 @@ See [sync.md](sync.md) for notes on device sync/pairing protocol
 
 See [notes.md](notes.md) for miscellaneous project notes and intermediate results.
 
+See [hardware.md](hardware.md) for hardware notes (pinouts, etc...)
+
 See [checksum.py](checksum.py) for packet checksum computation and explanation.
 
 See [quadcsv.py](quadcsv.py) for script to process Saleae Logic SPI CSV data into more manageable chunks
