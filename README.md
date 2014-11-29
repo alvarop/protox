@@ -1,5 +1,6 @@
 I'm trying to reverse engineer the [Proto-X](http://www.protoquad.com) radio protocol to build my own controllers (and maybe mess with others...) Similar things have been done in the past, but I figured it would be a fun learning experience. This repo has my current findings.
 
+![Remote+Quad](/images/IMG_2328.jpg)
 
 ### Current Status
 I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I expor the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'
