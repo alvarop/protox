@@ -1,9 +1,10 @@
-# Radio Configuration and Startup
+# Radio Configuration and Startup 
 
 Trying to figure out what the initial configuration for the radio is and startup procedure.
 
+## Remote
 
-## Step 1 - Initial Register Configuration
+### Step 1 - Initial Register Configuration
 
 NOTE: The registers are written in order except for register 0x00 which is written first, then register 0x06. The rest follow in order. Values marked with N/A are not set initially
 
@@ -62,7 +63,7 @@ NOTE: The registers are written in order except for register 0x00 which is writt
 0x32 | N/A | Filter test Register
 
 
-## Step 2 - Internal Calibration
+### Step 2 - Internal Calibration
 
 The device is set to standby mode by using the 0xA0 strobe command.
 
@@ -91,9 +92,9 @@ The VCO Single band Calibration Register I (0x25) is then set (In my case, it wa
 The device is set back to standby mode by using the 0xA0 strobe command.
 
 
-## Step 3 - Channel Select
+### Step 3 - Channel Select
 
-### Step 3.1 - Scan Setup 
+#### Step 3.1 - Scan Setup 
 
 The ID register (0x6) is read back (Maybe to confirm it's still what we set it to in the beginning?)
 
@@ -107,7 +108,7 @@ The ADC Control Register (0x1E) is set to 0xC3, which means the RSSI margin is 2
 
 The channel scan is then done multiple times, with PLL values of: 0x14, 0x1e, 0x28, 0x32, 0x3c, 0x46, 0x50, 0x5a, 0x64, 0x6e, 0x78, 0x82
 
-### Step 3.2 Channel Scan
+#### Step 3.2 Channel Scan
 
 The PLL Register I (0x0F) is set to 0xXX (see above values).
 
@@ -124,3 +125,17 @@ The best channel is selected by [Not sure yet]
 The PLL Register I (0x0F) is set to the best channel
 
 The device is set to PLL mode by using the 0xB0 strobe command.
+
+## Quad
+
+### Step 1 - Initial Register Configuration
+
+The initial register configuration seems to be the same on the quad and the remote
+
+### Step 2 - Internal Calibration
+The internal calibration seems to be the same on the quad and the remote
+
+### Step 3 - Channel Scan
+The quad also has a channel scan after the calibration, but it is very different from the remote's. It constantly cycles through twelve channels until it receives a packet from the remote.
+
+The quad first starts on channel 20 (2410 MHz) and increases in 5MHz increments (10 channels) every ~14ms or so until it reaches channel 130 (2465 MHz.) The base is transmitting on a single channel at approximatley the same rate, so it should take less than ~170ms to find the correct frequency.
