@@ -126,3 +126,4 @@ Byte | Description
 * http://www.cloud-rocket.com/2014/07/reverse-engineering-wltoys-v929v911protocol/
 * https://github.com/goebish/bradwii-X4
 * https://github.com/hackocopter/JD385_Documentation
+* http://www.deviationtx.com/forum/protocol-development/1848-new-hubsan-upgraded-version-on-the-way - These guys already got the new controller and figured out a whole lot
