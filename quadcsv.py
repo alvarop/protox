@@ -4,6 +4,7 @@ import csv
 import sys
 import array
 import a7105
+import argparse
 
 # 
 # Use this script to process Saleae Logic captured SPI data (from CSV) to more manageable chunks
@@ -60,7 +61,7 @@ import a7105
 # Packet format:
 # [time, packetString, repeats]
 # 
-def getPacketsFromFile(filename):
+def getPacketsFromFile(filename, identifier=None):
 	packets = []
 	with open(filename, 'rb') as csvfile:
 		reader = csv.reader(csvfile)
@@ -96,7 +97,11 @@ def getPacketsFromFile(filename):
 
 					# Ignore empty packets
 					if(len(packetString) > 0):
-						packets.append([packet_time, packetString, dupe_count])
+						packetItem = [packet_time, packetString, dupe_count]
+						if(identifier):
+							packetItem.append(identifier)
+
+						packets.append(packetItem)
 
 					dupe_count = 0
 
@@ -112,6 +117,9 @@ def getPacketsFromFile(filename):
 # Get a list of packets in the above format and print them
 def printPackets(packets, decode):
 	for packet in packets:
+
+		if(len(packet) > 3):
+			sys.stdout.write(packet[3] + ' ')		
 	
 		sys.stdout.write(format(packet[0], 'f') + ' ')
 
@@ -129,15 +137,16 @@ def printPackets(packets, decode):
 # Main Code
 # 
 
-decodePackets = False
+parser = argparse.ArgumentParser()
+parser.add_argument('-r','--remote', type=str)
+parser.add_argument('-q','--quad', type=str)
+parser.add_argument('-d', action="store_true", default=False) 
+ARGS = parser.parse_args()
 
-if len (sys.argv) == 1:
-	print("usage: quadcsv.py filename.csv")
-	sys.exit(0)
+# print ARGS.remote, ARGS.quad
 
-# Option to only print larger packets (just for testing)
-if len(sys.argv) > 2:
-	if sys.argv[2] == 'd':
-		decodePackets = True
+if ARGS.remote:
+	printPackets(getPacketsFromFile(ARGS.remote, 'remote'), ARGS.d)
 
-printPackets(getPacketsFromFile(sys.argv[1]), decodePackets)
+if ARGS.quad:
+	printPackets(getPacketsFromFile(ARGS.quad, 'quad  '), ARGS.d)
