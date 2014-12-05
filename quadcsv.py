@@ -133,6 +133,9 @@ def printPackets(packets, decode):
 		
 		sys.stdout.write('\n')
 
+def getTime(packet):
+	return packet[0]
+
 # 
 # Main Code
 # 
@@ -143,10 +146,13 @@ parser.add_argument('-q','--quad', type=str)
 parser.add_argument('-d', action="store_true", default=False) 
 ARGS = parser.parse_args()
 
-# print ARGS.remote, ARGS.quad
+packets = []
 
 if ARGS.remote:
-	printPackets(getPacketsFromFile(ARGS.remote, 'remote'), ARGS.d)
+	packets.extend(getPacketsFromFile(ARGS.remote, 'remote'))
 
 if ARGS.quad:
-	printPackets(getPacketsFromFile(ARGS.quad, 'quad  '), ARGS.d)
+	packets.extend(getPacketsFromFile(ARGS.quad, 'quad  '))
+
+# Combine both packets and sort by timestamp for a nice intermixed printout
+printPackets(sorted(packets, key=getTime), ARGS.d)
