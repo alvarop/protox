@@ -53,7 +53,82 @@ import a7105
 # 40 19  (Repeated 148 times)
 #
 
-largePacketsOnly = False
+# 
+# Open CSV file with SPI capture and generate packets
+# Return a list with the compiled packets
+# 
+# Packet format:
+# [time, packetString, repeats]
+# 
+def getPacketsFromFile(filename):
+	packets = []
+	with open(filename, 'rb') as csvfile:
+		reader = csv.reader(csvfile)
+
+		# Ignore first line
+		reader.next() 
+		
+		packet_index = 0
+		packet_time = 0
+
+		# print starttime
+		current_packet = array.array('B')
+		old_packet = []
+		dupe_count = 0
+
+		for row in reader:
+			
+			# Sometimes row[1] is just ''
+			try:
+				current_index = int(row[1])
+			except:
+				current_index = -1
+			
+			if current_index != packet_index:
+				if old_packet == current_packet:
+					dupe_count += 1
+				else:
+					packetString = ""
+					for byte in old_packet:
+						packetString += format(byte, '02x') + ' '
+
+					packetString = packetString.strip()
+
+					# Ignore empty packets
+					if(len(packetString) > 0):
+						packets.append([packet_time, packetString, dupe_count])
+
+					dupe_count = 0
+
+				packet_index = current_index
+				old_packet = current_packet
+				current_packet = array.array('B')
+				packet_time = float(row[0])
+
+			current_packet.append(int(row[2], 16))			
+
+	return packets
+
+# Get a list of packets in the above format and print them
+def printPackets(packets, decode):
+	for packet in packets:
+	
+		sys.stdout.write(format(packet[0], 'f') + ' ')
+
+		if decode == False:
+			sys.stdout.write(packet[1]);
+		else:
+			sys.stdout.write(a7105.decodeSPIPacket(packet[1]))
+
+		if packet[2] > 0:
+			sys.stdout.write(' (Repeated ' + str(packet[2]) + ' times)')
+		
+		sys.stdout.write('\n')
+
+# 
+# Main Code
+# 
+
 decodePackets = False
 
 if len (sys.argv) == 1:
@@ -62,61 +137,7 @@ if len (sys.argv) == 1:
 
 # Option to only print larger packets (just for testing)
 if len(sys.argv) > 2:
-	if sys.argv[2] == 'l':
-		largePacketsOnly = True
-
 	if sys.argv[2] == 'd':
 		decodePackets = True
 
-with open(sys.argv[1], 'rb') as csvfile:
-	reader = csv.reader(csvfile)
-
-	# Ignore first line
-	reader.next() 
-	
-	packet_index = 0
-
-	# print starttime
-	current_packet = array.array('B')
-	old_packet = []
-	dupe_count = 0
-
-	for row in reader:
-		
-		# Sometimes row[1] is just ''
-		try:
-			current_index = int(row[1])
-		except:
-			current_index = -1
-		
-		if current_index != packet_index:
-			if old_packet == current_packet:
-				dupe_count += 1
-			else:
-				if (largePacketsOnly == True and len(old_packet) > 10) or (largePacketsOnly == False):	
-
-					packetString = ""
-					for byte in old_packet:
-						packetString += format(byte, '02x') + ' '
-
-					packetString = packetString.strip()
-
-					if decodePackets == False:
-						sys.stdout.write(packetString);
-					else:
-						sys.stdout.write(a7105.decodeSPIPacket(packetString))
-
-					if dupe_count > 0:
-						sys.stdout.write(' (Repeated ' + str(dupe_count) + ' times)')
-					
-					sys.stdout.write('\n')
-
-				dupe_count = 0
-
-			packet_index = current_index
-			old_packet = current_packet
-			current_packet = array.array('B')
-
-		current_packet.append(int(row[2], 16))			
-
-		prevtime = float(row[0])
+printPackets(getPacketsFromFile(sys.argv[1]), decodePackets)
