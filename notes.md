@@ -124,3 +124,5 @@ Byte | Description
 ## Similar Projects:
 * https://bitbucket.org/PhracturedBlue/deviation/src/92e1705cf895b415ab16f6e1d7df93ee11d55afe/doc/Flysky.txt?at#default
 * http://www.cloud-rocket.com/2014/07/reverse-engineering-wltoys-v929v911protocol/
+* https://github.com/goebish/bradwii-X4
+* https://github.com/hackocopter/JD385_Documentation
