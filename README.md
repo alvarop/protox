@@ -9,7 +9,7 @@ This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome
 ### Current Status
 I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I export the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'. You can see an example processed capture [here](processeddata/connect2.processed.txt).
 
-After what seemed an eternity, I was able to solder some wires to sniff the SPI data on the quadcopter itself. The microscope came in handy while trying to solder tiny wires on to pins on a QFN device. This allows me to capture both radio streams simultaneously and get a complete picture of what exactly goes on during pairing and operation.
+After what seemed an eternity, I was able to solder some wires to sniff the SPI data on the quadcopter itself. The microscope came in handy while trying to solder tiny wires on to pins on a QFN device. This allows me to capture both radio streams simultaneously and get a complete picture of what exactly goes on during pairing and operation. A processed packet capture with both the remote and quad data can be found [here](processeddata/dual-capture.decoded.txt).
 
 I've added the [a7105.py](a7105.py) module which allows for plaintext decoding of the A7105 radio packets. This makes reading captures much simpler, since I no longer need to look up what each register means... You can see an example decoded capture [here](processeddata/connect2.decoded.txt).
 
