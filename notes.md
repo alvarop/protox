@@ -94,29 +94,6 @@ Byte | Description
 0x0E | 
 0x0F | Checksum
 
-### Control
-
-Packet used during flight (after sync)
-
-Byte | Description
----- | -----------
-0x00 | Packet Type - 0x20?
-0x01 | 
-0x02 | Throttle (0x00 - 0xFA)
-0x03 | 
-0x04 | Yaw Left (0x80-0x34) - Yaw Right (0x80-0xCC)
-0x05 | 
-0x06 | Pitch Forward (0x80-0x34) - Pitch Backward (0x80-0xCC)
-0x07 | 
-0x08 | Roll Left (0x80-0xCC) - Roll Right (0x80-0x34)
-0x09 | 
-0x0A | 
-0x0B | 
-0x0C | 
-0x0D | 
-0x0E | 
-0x0F | Checksum
-
 ## Documentation links
 * A7105 Datasheet - http://www.avantcom.com.tw/AVANTCOM/TC/DATA/PRODUCT/SOLVE/18_3.pdf
 * STM8S003F3P6 Datasheet - http://www.st.com/web/en/resource/technical/document/datasheet/DM00024550.pdf

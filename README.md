@@ -13,7 +13,7 @@ After what seemed an eternity, I was able to solder some wires to sniff the SPI 
 
 I've added the [a7105.py](a7105.py) module which allows for plaintext decoding of the A7105 radio packets. This makes reading captures much simpler, since I no longer need to look up what each register means... You can see an example decoded capture [here](processeddata/connect2.decoded.txt).
 
-So far, I have a decent understanding of the [startup](startup.md) sequence and some idea about how the remote and quadcopter [pair/sync](sync.md) together. I think I've figured out which bytes on the radio packet are used for the basic controls.
+So far, I have a decent understanding of the [startup](startup.md) sequence and some idea about how the remote and quadcopter [pair/sync](sync.md) together. I think I've figured out which bytes on the radio packet are used for the basic controls. See [control.md](control.md) for more info.
 
 All radio packets (for both pairing and control) have an 8-bit checksum. It's a fairly simple computation. I used another [python script](checksum.py) to test and verify it.
 
@@ -27,6 +27,8 @@ See the following files for much more detailed information on each topic:
 See [startup.md](startup.md) for initial configuration and channel selection for both the remote and the quad
 
 See [sync.md](sync.md) for notes on device sync/pairing protocol
+
+See [control.md](control.md) for notes on radios, control packets, and control modes
 
 See [notes.md](notes.md) for miscellaneous project notes and intermediate results.
 
