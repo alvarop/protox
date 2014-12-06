@@ -20,6 +20,9 @@ Bit 4 on byte 9 on the control packet (counting from 0) has the flips enabled/di
 
 To see a sample capture with expert mode and flips enabled, see [this one.](processeddata/quad-start-to-expertmode2.decoded.txt)
 
+## Expert Mode/Flips on Small Remote
+From what I've seen so far, there's nothing preventing the little remote from entering expert mode and enabling/disabling flips. The remote itself has buttons under both sticks. A quick firmware update should be able to provide the new functionality. Unfortunately, I've never used STM8 devices and have no programmer/debugger for them :-(
+
 ## Packet Format
 
 This is what I know so far about the control packet format
