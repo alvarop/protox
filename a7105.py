@@ -197,9 +197,44 @@ def processPLL1(packet):
 
 	return rString
 
+# 
+# Decode protoX packets
+# Only decoding 0x20 (control) packets right now
+# 
+def processFIFO(packet):
+	rString = ''
+
+	if(packet[1] == 0x20):
+		# Throttle
+		rString += 'T: ' + format(packet[3]/255.0 * 100, '2.0f') + ' '
+
+		# Rudder (Yaw left/right)
+		rString += 'R: ' + format((packet[5] - 128)/127.0 * 100, '2.0f') + ' '
+
+		# Elevator (Pitch forward/back)
+		rString += 'E: ' + format(-(packet[7] - 128)/127.0 * 100, '2.0f') + ' '
+
+		# Aileron (Roll left/right)
+		rString += 'A: ' + format(-(packet[9] - 128)/127.0 * 100, '2.0f') + ' '
+		
+		if((packet[10] & 0x08)):
+			rString += 'Flips Enabled'
+		else :
+			rString += 'Flips Disabled'
+	else:
+		rString +=  'FIFO ['
+			
+		for byteIndex in range(1, len(packet)):
+			rString += format(packet[byteIndex], '02X') + ' '
+		
+		rString = rString.strip()
+		rString += ']'
+
+	return rString
 
 # Overwrite register functions
 regs[0x00] = processMode
+regs[0x05] = processFIFO
 regs[0x0F] = processPLL1
 regs[0x1D] = processRSSI
 
