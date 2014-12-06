@@ -4,7 +4,7 @@ The ProtoX quadcopter comes with a small 4 channel remote. It also works with th
 
 The larger remote is able to enable/disable expert/stunt mode as well as enable/disable flips.
 
-![Controllers](/images/IMG_2328.jpg)
+![Controllers](/images/IMG_2722.jpg)
 
 ## Expert/stunt mode
 This mode makes the controls much more sensitive, which allows for quicker manouvers. The small remote doesn't seem to have a way to enable this but the larger one does it by clicking on the right stick.
