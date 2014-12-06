@@ -4,6 +4,11 @@ Trying to figure out what the initial configuration for the radio is and startup
 
 ## Remote
 
+### Shorthand
+'Channel set to (value)' is equivalent to a PLL Register I (0x0F) write with that value, followed by a PLL mode strobe command (0xB0)
+
+'RX mode enabled' is equivalent to an the RX mode (0xC0) strobe command.
+
 ### Step 1 - Initial Register Configuration
 
 NOTE: The registers are written in order except for register 0x00 which is written first, then register 0x06. The rest follow in order. Values marked with N/A are not set initially
@@ -65,20 +70,18 @@ NOTE: The registers are written in order except for register 0x00 which is writt
 
 ### Step 2 - Internal Calibration
 
-1. The device is set to standby mode by using the 0xA0 strobe command.
-2. Register 0x02 is set to 1, which enables the IF Filter Bank calibration (I have no idea what that means.) The register is then read until the bit is cleared, which indicates calibration complete.
-3. The IF calibration register I (0x22) is then read back to check the calibration status. Bit 4 == 0 means the auto-calibration was successful. (in my case, the read back value was 0x06)
-4. The IF calibration register I (0x22) is then set with a manual calibration value (0x13 in my case). For some reason, they also write to the IF Calibration Register II (with value 0x3B), which is weird, since according to the datasheet I have, is read only... 
-5. The PLL Register I (0x0F) is set to 0x00. (This sets the transmit/receive frequency or channel)
-6. The device is then set to PLL mode by using the 0xB0 strobe command.
-7. Register 0x02 is set to 2, which enables the VCO Bank calibration. The register is then read until the bit is cleared, which indicates calibration complete.
-8. The IF calibration register I (0x22) is read back again to check the calibration result. (In my case, the value was 0x03)
-9. The PLL Register I (0x0F) is now set to 0x78. 
-10. The device is again set to PLL mode by using the 0xB0 strobe command.
-11. Register 0x02 is set to 2, which enables the VCO Bank calibratio (Yes, again.) The register is then read until the bit is cleared, which indicates calibration complete.
-12. The IF calibration register I (0x22) is read back to check the calibration result (In my case, the value was 0x03)
-13. The VCO Single band Calibration Register I (0x25) is then set (In my case, it was 0x0B).
-14. The device is set back to standby mode by using the 0xA0 strobe command.
+1. The device is set to standby mode
+2. IF Filter Bank calibration is enabled and run. (the register is then read until the bit is cleared, which indicates calibration complete.)
+3. The IF calibration register I is read back to check the calibration status. Bit 4 == 0 means the auto-calibration was successful.
+4. The IF calibration register I is set with a manual calibration value (0x13 in my case). For some reason, they also write to the IF Calibration Register II (with value 0x3B), which is weird, since according to the datasheet I have, is read only... 
+5. The channel is set to 0x00
+6. Register 0x02 is set to 2, which enables the VCO Bank calibration. The register is read until the bit is cleared, which indicates calibration complete.
+7. The IF calibration register I is read back again to check the calibration result. (In my case, the value was 0x03)
+8. The channel is set to 0x78
+9. Register 0x02 is set to 2, which enables the VCO Bank calibratio (Yes, again.) The register is read until the bit is cleared, which indicates calibration complete.
+10. The IF calibration register I is read back to check the calibration result (In my case, the value was 0x03)
+11. The VCO Single band Calibration Register I (0x25) is set (In my case, it was 0x0B).
+12. The device is set back to standby mode by using the 0xA0 strobe command.
 
 #### Notes about calibration
 Some of the things they do don't make any sense.
@@ -93,35 +96,22 @@ I'm not quite sure how they come up with the manual calibration values either. T
 
 #### Step 3.1 - Scan Setup 
 
-The ID register (0x6) is read back (Maybe to confirm it's still what we set it to in the beginning?)
-
-The PLL Register I (0x0F) is now set to 0xA0.
-
-The device is set to PLL mode by using the 0xB0 strobe command.
-
-The device is then set to RX mode by using the 0xC0 strobe command.
-
-The ADC Control Register (0x1E) is set to 0xC3, which means the RSSI margin is 20, RSSI measurements are in continuous mode, and the measurement is set to RSSI or carrier-detect measurement.
-
-The channel scan is then done multiple times, with PLL values of: 0x14, 0x1e, 0x28, 0x32, 0x3c, 0x46, 0x50, 0x5a, 0x64, 0x6e, 0x78, 0x82
+1. The ID register is read back (Maybe to confirm it's still what we set it to in the beginning?)
+2. The channel is set to A0
+3. RX mode is enabled
+4. The ADC Control Register (0x1E) is set to 0xC3, which means the RSSI margin is 20, RSSI measurements are in continuous mode, and the measurement is set to RSSI or carrier-detect measurement.
+5. The channel scan is then done multiple times, with PLL values of: 0x14, 0x1e, 0x28, 0x32, 0x3c, 0x46, 0x50, 0x5a, 0x64, 0x6e, 0x78, 0x82
 
 #### Step 3.2 Channel Scan
 
-The PLL Register I (0x0F) is set to 0xXX (see above values).
-
-The device is set to PLL mode by using the 0xB0 strobe command.
-
-The device is then set to RX mode by using the 0xC0 strobe command.
-
-The RSSI Threshold register is then read 15 times
+1. The channel is set to the above values
+2. RX Mode is enabled
+3. The RSSI Threshold register is then read 15 times
 
 ### Step 3.3 Channel Selection
 
-The best channel is selected by [Not sure yet]
-
-The PLL Register I (0x0F) is set to the best channel
-
-The device is set to PLL mode by using the 0xB0 strobe command.
+1. The best channel is selected by [Not sure yet]
+2. Channel is se to [best channel]
 
 ## Quad
 
