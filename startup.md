@@ -65,33 +65,20 @@ NOTE: The registers are written in order except for register 0x00 which is writt
 
 ### Step 2 - Internal Calibration
 
-The device is set to standby mode by using the 0xA0 strobe command.
-
-Register 0x02 is set to 1, which enables the IF Filter Bank calibration (I have no idea what that means.) The register is then read until the bit is cleared, which indicates calibration complete.
-
-The IF calibration register I (0x22) is then read back to check the calibration status. Bit 4 == 0 means the auto-calibration was successful. (in my case, the read back value was 0x06)
-
-The IF calibration register I (0x22) is then set with a manual calibration value (0x13 in my case). For some reason, they also write to the IF Calibration Register II (with value 0x3B), which is weird, since according to the datasheet I have, is read only... 
-
-The PLL Register I (0x0F) is set to 0x00. (This sets the transmit/receive frequency or channel)
-
-The device is then set to PLL mode by using the 0xB0 strobe command.
-
-Register 0x02 is set to 2, which enables the VCO Bank calibration. The register is then read until the bit is cleared, which indicates calibration complete.
-
-The IF calibration register I (0x22) is read back again to check the calibration result. (In my case, the value was 0x03)
-
-The PLL Register I (0x0F) is now set to 0x78. 
-
-The device is again set to PLL mode by using the 0xB0 strobe command.
-
-Register 0x02 is set to 2, which enables the VCO Bank calibratio (Yes, again.) The register is then read until the bit is cleared, which indicates calibration complete.
-
-The IF calibration register I (0x22) is read back to check the calibration result (In my case, the value was 0x03)
-
-The VCO Single band Calibration Register I (0x25) is then set (In my case, it was 0x0B).
-
-The device is set back to standby mode by using the 0xA0 strobe command.
+1. The device is set to standby mode by using the 0xA0 strobe command.
+2. Register 0x02 is set to 1, which enables the IF Filter Bank calibration (I have no idea what that means.) The register is then read until the bit is cleared, which indicates calibration complete.
+3. The IF calibration register I (0x22) is then read back to check the calibration status. Bit 4 == 0 means the auto-calibration was successful. (in my case, the read back value was 0x06)
+4. The IF calibration register I (0x22) is then set with a manual calibration value (0x13 in my case). For some reason, they also write to the IF Calibration Register II (with value 0x3B), which is weird, since according to the datasheet I have, is read only... 
+5. The PLL Register I (0x0F) is set to 0x00. (This sets the transmit/receive frequency or channel)
+6. The device is then set to PLL mode by using the 0xB0 strobe command.
+7. Register 0x02 is set to 2, which enables the VCO Bank calibration. The register is then read until the bit is cleared, which indicates calibration complete.
+8. The IF calibration register I (0x22) is read back again to check the calibration result. (In my case, the value was 0x03)
+9. The PLL Register I (0x0F) is now set to 0x78. 
+10. The device is again set to PLL mode by using the 0xB0 strobe command.
+11. Register 0x02 is set to 2, which enables the VCO Bank calibratio (Yes, again.) The register is then read until the bit is cleared, which indicates calibration complete.
+12. The IF calibration register I (0x22) is read back to check the calibration result (In my case, the value was 0x03)
+13. The VCO Single band Calibration Register I (0x25) is then set (In my case, it was 0x0B).
+14. The device is set back to standby mode by using the 0xA0 strobe command.
 
 #### Notes about calibration
 Some of the things they do don't make any sense.
