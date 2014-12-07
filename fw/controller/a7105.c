@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#include "stm32f4xx_conf.h"
+#include "stm32f4xx.h"
 #include "a7105.h"
+
 
 // 
 // Strobe definitions
@@ -86,9 +89,6 @@ typedef struct {
 	uint8_t val;
 } regSetting_t;
 
-static uint8_t wrBuff[256];
-static uint8_t rdBuff[256];
-
 static const regSetting_t initialSettings[] = {
 	{MODE_CTL,					0x62},
 	{CAL_CTL,					0x00},
@@ -139,36 +139,56 @@ static const regSetting_t initialSettings[] = {
 };
 
 static int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
-	wrBuff[0] = addr;
-
-	if(len > (sizeof(wrBuff) - 1)) {
-		len = sizeof(wrBuff) - 1;
-	}
-
-	memset(&wrBuff[1], 0x00, len);
 
 	// TODO - SPI RW wrBuff, rdBuff len+1
 
-	// Not very efficient, but caller won't have to worry about address byte
 	if(buff != NULL){
-		memcpy(buff, &rdBuff[1], len);
+		
+		return 0;
+	} else {
+		printf("%s - buff is NULL\n", __func__);
+		return -1;
 	}
 
 	return 0;
 }
 
 static int32_t a7105Write(uint8_t addr, uint8_t *buff, uint8_t len) {
-	wrBuff[0] = addr;
 
-	if(len > (sizeof(wrBuff) - 1)) {
-		len = sizeof(wrBuff) - 1;
+	if(buff != NULL) {
+		volatile uint32_t *dummy;
+
+		// SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
+
+		GPIO_ResetBits(GPIOB, (1 << 11));
+
+		SPI2->DR = addr;
+
+		// TODO - use interrupts and __WFI here
+		while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
+		dummy = SPI2->DR;
+
+		for(int32_t byte = 0; byte < len; byte++){
+			
+			SPI2->DR = buff[byte];
+			while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
+			dummy = SPI2->DR;
+		}
+
+		while(SPI2->SR & SPI_I2S_FLAG_BSY);
+
+		// TODO - figure out why it breaks if there's no delay
+		for(uint32_t x = 0; x < 100; x++) {
+			__asm("nop");
+		}
+
+		GPIO_SetBits(GPIOB, (1 << 11));
+
+		return 0;
+	} else {
+		printf("%s - buff is NULL\n", __func__);
+		return -1;
 	}
-
-	memcpy(&wrBuff[1], buff, len);
-
-	// TODO - SPI RW wrBuff len+1
-
-	return 0;
 }
 
 static int32_t a7105WriteReg(uint8_t reg, uint8_t val) {
@@ -255,7 +275,43 @@ static a7105Calibrate() {
 
 // TODO - add rx callback here?
 void a7105Init() {
-	// TODO - setup SPI
+	
+	SPI_InitTypeDef spiConfig;
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+
+	//
+	// GPIO Config
+	//
+
+	// PB11 - CS
+	// PB13 - SCK
+	// PB15 - MISO/MOSI (half-duplex mode)
+	GPIO_Init(GPIOB, &(GPIO_InitTypeDef){GPIO_Pin_11, GPIO_Mode_OUT, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
+	GPIO_Init(GPIOB, &(GPIO_InitTypeDef){GPIO_Pin_13, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
+	GPIO_Init(GPIOB, &(GPIO_InitTypeDef){GPIO_Pin_15, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
+
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource13, GPIO_AF_SPI2);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource15, GPIO_AF_SPI2);
+
+	GPIO_SetBits(GPIOB, (1 << 11)); // Disable PB11, since it's active low
+
+	//
+	// SPI Config
+	//
+	SPI_StructInit(&spiConfig);
+
+	spiConfig.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+	spiConfig.SPI_Mode = SPI_Mode_Master;
+	spiConfig.SPI_NSS = SPI_NSS_Soft;
+	spiConfig.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_128; // (APB2PCLK == 42MHz)/128 = 328125 Hz
+
+	SPI_I2S_DeInit(SPI2);
+
+	SPI_Init(SPI2, &spiConfig);
+
+	SPI_Cmd(SPI2, ENABLE);
 
 	// Device Reset
 	a7105WriteReg(MODE, 0x00);
@@ -266,6 +322,6 @@ void a7105Init() {
 		a7105WriteReg(initialSettings[reg].addr, initialSettings[reg].val);
 	}
 
-	a7105Calibrate();
+	// a7105Calibrate();
 
 }

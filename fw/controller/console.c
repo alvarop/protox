@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "a7105.h"
 #include "console.h"
 #include "fifo.h"
 
@@ -16,12 +17,11 @@ static uint8_t argc;
 static char* argv[8];
 
 static void helpFn(uint8_t argc, char *argv[]);
-static void command1(uint8_t argc, char *argv[]);
-static void command2(uint8_t argc, char *argv[]);
+static void initRadio(uint8_t argc, char *argv[]);
 
 static command_t commands[] = {
-	{"command1", command1, "This is command 1, a test command."},
-	{"command2", command2, "This is command 2, a different, better, test command."},
+	{"init", initRadio, "Initialize radio"},
+	// {"command2", command2, "This is command 2, a different, better, test command."},
 	// Add new commands here!
 	{"help", helpFn, "Print this!"},
 	{NULL, NULL, NULL}
@@ -52,16 +52,16 @@ static void helpFn(uint8_t argc, char *argv[]) {
 //
 // Example Commands
 //
-static void command1(uint8_t argc, char *argv[]) {
-	printf("Command 1 called with %d arguments!\n", argc - 1);
+static void initRadio(uint8_t argc, char *argv[]) {
+	a7105Init();
 }
 
-//
-// Example commands
-//
-static void command2(uint8_t argc, char *argv[]) {
-	printf("Command 2 called with %d arguments!\n", argc - 1);
-}
+// //
+// // Example commands
+// //
+// static void command2(uint8_t argc, char *argv[]) {
+// 	printf("Command 2 called with %d arguments!\n", argc - 1);
+// }
 
 
 void consoleProcess() {
