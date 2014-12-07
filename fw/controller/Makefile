@@ -8,7 +8,7 @@ SRCS += usbd_usr.c usbd_cdc_vcp.c usbd_desc.c usb_bsp.c usbd_core.c
 
 # Project name
 
-PROJ_NAME = stm32f4xx-gcc-barebones
+PROJ_NAME = protox-controller
 OUTPATH = build
 
 OUTPATH := $(abspath $(OUTPATH))
