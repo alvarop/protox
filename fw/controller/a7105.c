@@ -138,6 +138,16 @@ static const regSetting_t initialSettings[] = {
 	{RSCALE,					0x0f},
 };
 
+extern volatile uint32_t tickMs;
+
+static void msDelay(uint32_t delay) {
+	uint32_t finishTime = tickMs + delay;
+
+	while(tickMs < finishTime) {
+		__WFI();
+	}
+}
+
 static int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 	// TODO - SPI RW wrBuff, rdBuff len+1
@@ -272,6 +282,11 @@ static int32_t a7105Strobe(uint8_t strobe) {
 // TODO - randomly generate ID?
 static uint8_t deviceID[] = {0x01, 0x23, 0x45, 0x67};
 
+static void a7105SetChannel(uint8_t ch) {
+	a7105WriteReg(PLL_I, ch);
+	a7105Strobe(STROBE_PLL);
+}
+
 //
 // Note: Taken calibration straight from captured SPI data from ProtoX remote
 // Some of the things they do don't make any sense.
@@ -300,8 +315,7 @@ static void a7105Calibrate() {
 	a7105WriteReg(IF_CAL_II, 0x3b);	// This register is read only....
 
 	puts("IF Filter Bank Calibration 1");
-	a7105WriteReg(PLL_I, 0x0);
-	a7105Strobe(STROBE_PLL);
+	a7105SetChannel(0);
 
 	a7105WriteReg(CAL_CTL, 0x02); // Enable VCO Bank Calibration
 	while (a7105ReadReg(CAL_CTL) & 0x02) {
@@ -315,8 +329,7 @@ static void a7105Calibrate() {
 	}
 
 	puts("IF Filter Bank Calibration 2");
-	a7105WriteReg(PLL_I, 0x78);
-	a7105Strobe(STROBE_PLL);	
+	a7105SetChannel(0x78);
 
 	a7105WriteReg(CAL_CTL, 0x02); // Enable VCO Bank Calibration (again)
 	while (a7105ReadReg(CAL_CTL) & 0x02) {
@@ -334,6 +347,47 @@ static void a7105Calibrate() {
 	a7105Strobe(STROBE_STANDBY);
 
 	puts("Calibration complete");
+}
+
+static const uint8_t channels[] = {0x14, 0x1e, 0x28, 0x32, 0x3c, 0x46, 0x50, 0x5a, 0x64, 0x6e, 0x78, 0x82};
+static uint32_t rssiValues[sizeof(channels)];
+#define RSSI_SAMPLES (15)
+
+int32_t a7105SetBestChannel() {
+	uint8_t bestChannel = 0;
+
+	a7105SetChannel(0);
+	a7105Strobe(STROBE_RX);
+
+	a7105WriteReg(ADC_CTL, 0xC3);
+	for(uint8_t channel = 0; channel < sizeof(channels); channel++) {
+		a7105SetChannel(channels[channel]);
+		a7105Strobe(STROBE_RX);
+
+		msDelay(5);
+
+		rssiValues[channel] = 0;
+
+		for(uint8_t sample = 0; sample < RSSI_SAMPLES; sample++) {
+			rssiValues[channel] += a7105ReadReg(RSSI_THRESHOLD);
+			msDelay(2);
+		}
+
+		printf("Ch 0x%02X - RSSI total: %ld\n", channels[channel], rssiValues[channel]);
+
+		if(rssiValues[channel] <  rssiValues[bestChannel]) {
+			bestChannel = channel;
+		}
+	}
+
+	printf("Best channel is: %02X, setting\n", channels[bestChannel]);
+	a7105SetChannel(channels[bestChannel]);
+	a7105Strobe(STROBE_RX);
+
+	msDelay(5);
+
+
+	return 0;
 }
 
 // TODO - add rx callback here?
@@ -392,10 +446,12 @@ void a7105Init() {
 		}
 	}
 
+	a7105Calibrate();
+
 	uint8_t someID[4] = {0, 0, 0, 0};
 	a7105Read(ID_DATA, someID, sizeof(someID));
 
 	printf("Read ID: %02X %02X %02X %02X\n", someID[0], someID[1], someID[2], someID[3]);
 
-	a7105Calibrate();
+	a7105SetBestChannel();
 }
