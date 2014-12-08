@@ -4,11 +4,81 @@ Trying to figure out how the initial sync works.
 So far, the remote transmits the same packet with byte 0 being a 0x01 and seemingly random 5 bytes following.
 The quad responds with the same packet, but with a 0x02 for byte 0. They then do 0x03 and 0x04.
 
+The quad ID, which comes in bytes 2-5 of the received packet is set as the new remote ID.
+
 After that, the remote goes back to 0x01 (same as before.) The quad responds with 0x02 again, but this time has 0x03 and 0x07 in bytes 6 and 7 respectively. 
 
 The remote replies with the original packet, but this time byte 0 is 0x09 and byte 2 is 0x00. The quad then replies to that with byte 0 as 0x0a and byte 1 as 0x01.
 
-They go back an forth incrementing that number. The remote increments byte 2 while the quad increments byte 1. Once they both reach 0x09, the syncing process seems to be complete and the remote starts sending the normal control packet (with byte 0 of 0x20)
+They go back an forth incrementing that number. The remote increments byte 2 while the quad increments byte 1. Once they both reach 0x09, encryption is enabled by writing 0xF to the Code Register I (register 0x1F). 
+
+After that the syncing process seems to be complete and the remote starts sending the normal control packet (with byte 0 of 0x20)
+
+## Packet Format(s)
+
+### Stage 1
+
+Byte | Description
+---- | -----------
+0x00 | Packet Type - (0x1, 0x2, 0x3, 0x4)
+0x01 | counter (both)
+0x02 | Remote ID[0]
+0x03 | Remote ID[1]
+0x04 | Remote ID[2]
+0x05 | Remote ID[3]
+0x06 | ?
+0x07 | ?
+0x08 | ?
+0x09 | ?
+0x0A | ?
+0x0B | ?
+0x0C | ?
+0x0D | ?
+0x0E | ?
+0x0F | Checksum
+
+
+### Stage 2
+
+Byte | Description
+---- | -----------
+0x00 | Packet Type - (0x1, 0x2, 0x3, 0x4)
+0x01 | counter (both)
+0x02 | Remote ID[0]
+0x03 | Remote ID[1]
+0x04 | Remote ID[2]
+0x05 | Remote ID[3]
+0x06 | 0x3 (remote)
+0x07 | 0x7 (remote)
+0x08 | ?
+0x09 | ?
+0x0A | ?
+0x0B | ?
+0x0C | ?
+0x0D | ?
+0x0E | ?
+0x0F | Checksum
+
+### Stage 3
+
+Byte | Description
+---- | -----------
+0x00 | Packet Type - (0xA, 0x9)
+0x01 | Quad Counter (starts at 1)
+0x02 | Remote Counter (starts at 0)
+0x03 | ?
+0x04 | ?
+0x05 | ?
+0x06 | 0x3 (remote)
+0x07 | 0x7 (remote)
+0x08 | ?
+0x09 | ?
+0x0A | ?
+0x0B | ?
+0x0C | ?
+0x0D | ?
+0x0E | ?
+0x0F | Checksum
 
 ##Sync captures
 

@@ -7,6 +7,12 @@ This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome
 ![Remote+Quad](/images/IMG_2328.jpg)
 
 ### Current Status
+#### Super Current
+We have control!!! I gave up waiting for the radio modules to arrive, so instead I removed the STM8 microcontroller from one of the remotes and connected an STM32F4 to it instead. Well, just the SPI lines that go to the radio... After a day of fighting with the half-duplex SPI code, I managed to get pairing working. Turns out the remote changes its own ID to match the quad's and enables encryption after pairing. 
+
+I haven't had time to play with it much, but I managed to get a quick throttle ramp up/down working. You can catch the video ~[on youtube](http://www.youtube.com/watch?v=5Op-pvrtTcU)
+
+#### Not So Current
 I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I export the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'. You can see an example processed capture [here](processeddata/connect2.processed.txt).
 
 After what seemed an eternity, I was able to solder some wires to sniff the SPI data on the quadcopter itself. The microscope came in handy while trying to solder tiny wires on to pins on a QFN device. This allows me to capture both radio streams simultaneously and get a complete picture of what exactly goes on during pairing and operation. A processed packet capture with both the remote and quad data can be found [here](processeddata/dual-capture.decoded.txt).

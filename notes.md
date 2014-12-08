@@ -69,31 +69,6 @@
 0x31 | 0x71 | RScale Register
 0x32 | 0x72 | Filter test Register
 
-## Packet Format(s)
-
-### Sync
-
-Packet used during sync
-
-Byte | Description
----- | -----------
-0x00 | Packet Type - (0x1, 0x2, 0x3, 0x5, 0x9, 0xA)
-0x01 | sync 0 ?
-0x02 | sync 1 ?
-0x03 | sync 2 ?
-0x04 | sync 3 ?
-0x05 | sync 4 ?
-0x06 | sync 5 ?
-0x07 | sync 6 ?
-0x08 | sync 7 ?
-0x09 | sync 8 ?
-0x0A | 
-0x0B | 
-0x0C | 
-0x0D | 
-0x0E | 
-0x0F | Checksum
-
 ## Documentation links
 * A7105 Datasheet - http://www.avantcom.com.tw/AVANTCOM/TC/DATA/PRODUCT/SOLVE/18_3.pdf
 * STM8S003F3P6 Datasheet - http://www.st.com/web/en/resource/technical/document/datasheet/DM00024550.pdf
