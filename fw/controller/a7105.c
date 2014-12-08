@@ -148,6 +148,16 @@ static void msDelay(uint32_t delay) {
 	}
 }
 
+static uint8_t protoXChecksum(uint8_t *buff, uint8_t len) {
+	uint8_t checksum = 0;
+
+	for(uint8_t x = 0; x < len; x++) {
+		checksum -= buff[x];
+	}
+
+	return checksum;
+}
+
 static int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 	// TODO - SPI RW wrBuff, rdBuff len+1
@@ -280,7 +290,7 @@ static int32_t a7105Strobe(uint8_t strobe) {
 }
 
 // TODO - randomly generate ID?
-static uint8_t deviceID[] = {0x01, 0x23, 0x45, 0x67};
+static uint8_t deviceID[] = {0x55, 0x20, 0x10, 0x41};
 
 static void a7105SetChannel(uint8_t ch) {
 	a7105WriteReg(PLL_I, ch);
@@ -356,7 +366,7 @@ static uint32_t rssiValues[sizeof(channels)];
 int32_t a7105SetBestChannel() {
 	uint8_t bestChannel = 0;
 
-	a7105SetChannel(0);
+	a7105SetChannel(0xA0);
 	a7105Strobe(STROBE_RX);
 
 	a7105WriteReg(ADC_CTL, 0xC3);
@@ -382,7 +392,6 @@ int32_t a7105SetBestChannel() {
 
 	printf("Best channel is: %02X, setting\n", channels[bestChannel]);
 	a7105SetChannel(channels[bestChannel]);
-	a7105Strobe(STROBE_RX);
 
 	msDelay(5);
 
@@ -454,4 +463,62 @@ void a7105Init() {
 	printf("Read ID: %02X %02X %02X %02X\n", someID[0], someID[1], someID[2], someID[3]);
 
 	a7105SetBestChannel();
+
+}
+
+uint8_t packetBuff[256];
+void protoXSendPacket(uint8_t *buff, uint8_t len) {
+	memcpy(packetBuff, buff, len);
+	packetBuff[len] = protoXChecksum(packetBuff, len);
+
+	a7105Strobe(STROBE_STANDBY);
+	a7105Strobe(STROBE_FIFO_WR_RST);
+	a7105Write(FIFO_DATA, packetBuff, len + 1);
+	a7105Strobe(STROBE_TX);
+
+	while (a7105ReadReg(MODE) & MODE_TRER);
+}
+
+uint8_t magicalPacket[] = {0x01, 0x82, 0xC0, 0xAC, 0xD8, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+void protoXRemote() {
+	uint32_t timeout;
+	uint32_t packetReceived = 0;
+	printf("Starting remote\n");
+	do {
+		protoXSendPacket(magicalPacket, 15);
+
+		a7105Strobe(STROBE_RX);
+
+		timeout = tickMs + 14;
+
+		while ((a7105ReadReg(MODE) & MODE_TRER) && (timeout > tickMs));
+
+		// Heard it!
+		if (timeout > tickMs) {
+			a7105Strobe(STROBE_FIFO_RD_RST);
+			a7105Read(FIFO_DATA, packetBuff, 16);
+			packetReceived = 1;
+		} else {
+			puts("...");
+		}
+
+		for(uint32_t x = 0; x < 200; x++) {
+			__asm("nop");
+		}
+	} while(!packetReceived);
+
+	if(protoXChecksum(packetBuff, 16) == 0) {
+		printf("Good packet! [");
+		for(uint8_t x = 0; x < 16; x++) {
+			printf("%02X ", packetBuff[x]);
+		}
+		printf("]\n");
+	} else {
+		printf("Bad packet! [");
+		for(uint8_t x = 0; x < 16; x++) {
+			printf("%02X ", packetBuff[x]);
+		}
+		printf("]\n");
+	}
 }

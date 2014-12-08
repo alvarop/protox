@@ -4,5 +4,6 @@
 #include <stdint.h>
 
 void a7105Init();
+void protoXRemote();
 
 #endif
