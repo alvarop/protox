@@ -74,7 +74,7 @@
 #define FILTER_TEST				(0x32)
 
 #define STROBE_BIT				(0x80)
-#define READ_BIT				(0x40)
+#define RD_BIT					(0x40)
 
 #define MODE_FECF		(1 << 6)
 #define MODE_CRCF		(1 << 5)
@@ -143,7 +143,45 @@ static int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 	// TODO - SPI RW wrBuff, rdBuff len+1
 
 	if(buff != NULL){
-		
+		uint8_t *rxPtr = buff;
+
+		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
+
+		GPIO_ResetBits(GPIOB, (1 << 11));
+
+		SPI2->DR = addr | RD_BIT;
+
+		// TODO - use interrupts and __WFI here
+		while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
+		*rxPtr = SPI2->DR; // Dummy read of the address
+
+		while(SPI2->SR & SPI_I2S_FLAG_BSY);
+
+		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Rx);
+
+		for(int32_t byte = 0; byte < len; byte++){
+			
+			SPI2->DR = 0x00; // Dummy write
+			while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
+			*rxPtr++ = SPI2->DR;
+		}
+
+		while(SPI2->SR & SPI_I2S_FLAG_BSY);
+
+		// TODO - figure out why it breaks if there's no delay
+		for(uint32_t x = 0; x < 100; x++) {
+			__asm("nop");
+		}
+
+		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
+
+		GPIO_SetBits(GPIOB, (1 << 11));
+
+		for(uint32_t x = 0; x < 1000; x++) {
+			__asm("nop");
+		}
+
+
 		return 0;
 	} else {
 		printf("%s - buff is NULL\n", __func__);
@@ -156,9 +194,9 @@ static int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 static int32_t a7105Write(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 	if(buff != NULL) {
-		volatile uint32_t *dummy;
+		volatile uint32_t dummy;
 
-		// SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
+		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
 
 		GPIO_ResetBits(GPIOB, (1 << 11));
 
@@ -184,6 +222,11 @@ static int32_t a7105Write(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 		GPIO_SetBits(GPIOB, (1 << 11));
 
+		for(uint32_t x = 0; x < 1000; x++) {
+			__asm("nop");
+		}
+
+
 		return 0;
 	} else {
 		printf("%s - buff is NULL\n", __func__);
@@ -203,7 +246,34 @@ static uint8_t a7105ReadReg(uint8_t reg) {
 }
 
 static int32_t a7105Strobe(uint8_t strobe) {
-	return a7105Write(&strobe, NULL, 0);
+
+		volatile uint32_t dummy;
+
+		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
+
+		GPIO_ResetBits(GPIOB, (1 << 11));
+
+		SPI2->DR = strobe;
+
+		// TODO - use interrupts and __WFI here
+		while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
+		dummy = SPI2->DR;
+
+		while(SPI2->SR & SPI_I2S_FLAG_BSY);
+
+		// TODO - figure out why it breaks if there's no delay
+		for(uint32_t x = 0; x < 100; x++) {
+			__asm("nop");
+		}
+
+		GPIO_SetBits(GPIOB, (1 << 11));
+
+		for(uint32_t x = 0; x < 1000; x++) {
+			__asm("nop");
+		}
+
+
+	return 0;
 }
 
 // TODO - randomly generate ID?
@@ -218,7 +288,7 @@ static uint8_t deviceID[] = {0x01, 0x23, 0x45, 0x67};
 //
 // I'm leaving these possible bugs in place until I have a setup I can test with
 //
-static a7105Calibrate() {
+static void a7105Calibrate() {
 	puts("Starting A7105 Calibration");
 	a7105Strobe(STROBE_STANDBY);
 
@@ -302,7 +372,7 @@ void a7105Init() {
 	//
 	SPI_StructInit(&spiConfig);
 
-	spiConfig.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+	spiConfig.SPI_Direction = SPI_Direction_1Line_Tx;
 	spiConfig.SPI_Mode = SPI_Mode_Master;
 	spiConfig.SPI_NSS = SPI_NSS_Soft;
 	spiConfig.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_128; // (APB2PCLK == 42MHz)/128 = 328125 Hz
@@ -316,12 +386,23 @@ void a7105Init() {
 	// Device Reset
 	a7105WriteReg(MODE, 0x00);
 
+	for(uint32_t x = 0; x < 40000; x++) {
+		__asm("nop");
+	}
+
 	a7105Write(ID_DATA, deviceID, sizeof(deviceID));
 
 	for(uint32_t reg = 0; reg < (sizeof(initialSettings)/sizeof(regSetting_t)); reg++) {
 		a7105WriteReg(initialSettings[reg].addr, initialSettings[reg].val);
+		for(uint32_t x = 0; x < 200; x++) {
+			__asm("nop");
+		}
 	}
 
-	// a7105Calibrate();
+	uint8_t someID[4] = {0, 0, 0, 0};
+	a7105Read(ID_DATA, someID, sizeof(someID));
 
+	printf("Read ID: %02X %02X %02X %02X\n", someID[0], someID[1], someID[2], someID[3]);
+
+	a7105Calibrate();
 }
