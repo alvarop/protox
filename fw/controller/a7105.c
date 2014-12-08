@@ -153,7 +153,6 @@ static int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 		// TODO - use interrupts and __WFI here
 		while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
-		*rxPtr = SPI2->DR; // Dummy read of the address
 
 		while(SPI2->SR & SPI_I2S_FLAG_BSY);
 
@@ -163,10 +162,9 @@ static int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 			
 			SPI2->DR = 0x00; // Dummy write
 			while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
+			while(SPI2->SR & SPI_I2S_FLAG_BSY);
 			*rxPtr++ = SPI2->DR;
 		}
-
-		while(SPI2->SR & SPI_I2S_FLAG_BSY);
 
 		// TODO - figure out why it breaks if there's no delay
 		for(uint32_t x = 0; x < 100; x++) {
@@ -194,8 +192,6 @@ static int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 static int32_t a7105Write(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 	if(buff != NULL) {
-		volatile uint32_t dummy;
-
 		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
 
 		GPIO_ResetBits(GPIOB, (1 << 11));
@@ -204,13 +200,13 @@ static int32_t a7105Write(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 		// TODO - use interrupts and __WFI here
 		while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
-		dummy = SPI2->DR;
+		*(volatile uint16_t *)&SPI2->DR;
 
 		for(int32_t byte = 0; byte < len; byte++){
 			
 			SPI2->DR = buff[byte];
 			while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
-			dummy = SPI2->DR;
+			*(volatile uint16_t *)&SPI2->DR;
 		}
 
 		while(SPI2->SR & SPI_I2S_FLAG_BSY);
@@ -246,9 +242,6 @@ static uint8_t a7105ReadReg(uint8_t reg) {
 }
 
 static int32_t a7105Strobe(uint8_t strobe) {
-
-		volatile uint32_t dummy;
-
 		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
 
 		GPIO_ResetBits(GPIOB, (1 << 11));
@@ -257,7 +250,7 @@ static int32_t a7105Strobe(uint8_t strobe) {
 
 		// TODO - use interrupts and __WFI here
 		while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
-		dummy = SPI2->DR;
+		*(volatile uint16_t *)&SPI2->DR;
 
 		while(SPI2->SR & SPI_I2S_FLAG_BSY);
 
