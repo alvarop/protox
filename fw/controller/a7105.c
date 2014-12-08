@@ -481,9 +481,65 @@ void protoXSendPacket(uint8_t *buff, uint8_t len) {
 
 uint8_t magicalPacket[] = {0x01, 0x82, 0xC0, 0xAC, 0xD8, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
+typedef enum {COUNT1, COUNT2, COUNT3} connectState_t;
+static connectState_t state = COUNT1;
+
+int32_t processPacket(uint8_t *packet) {
+	int32_t rval = 0;
+
+	if(protoXChecksum(packet, 16) == 0) {
+		switch(state) {
+			case COUNT1: {
+				puts("1");
+				if(packet[0] == 4) {
+					magicalPacket[0] = 1;
+
+					// Set the new ID
+					a7105Write(ID_DATA, &magicalPacket[2], 4);
+
+					state = COUNT2;
+				} else {
+					magicalPacket[0] = packet[0] + 1;
+				}
+				break;
+			}
+
+			case COUNT2: {
+				puts("2");
+				magicalPacket[0] = 0x9;
+				magicalPacket[2] = 0x00;
+				state = COUNT3;
+				break;
+			}
+
+			case COUNT3: {
+				puts("3");
+				if(packet[1] == 9) {
+					magicalPacket[0] = 1;	
+					state = COUNT1;
+					rval = 1;
+				} else {
+					magicalPacket[2] = packet[1];
+				}
+				break;
+			}
+		}
+		
+	} else {
+		printf("Bad packet! [");
+		for(uint8_t x = 0; x < 16; x++) {
+			printf("%02X ", packet[x]);
+		}
+		printf("]\n");
+		rval = 1;
+	}
+
+	return rval;
+}
+
 void protoXRemote() {
 	uint32_t timeout;
-	uint32_t packetReceived = 0;
+	uint32_t done = 0;
 	printf("Starting remote\n");
 	do {
 		protoXSendPacket(magicalPacket, 15);
@@ -498,27 +554,18 @@ void protoXRemote() {
 		if (timeout > tickMs) {
 			a7105Strobe(STROBE_FIFO_RD_RST);
 			a7105Read(FIFO_DATA, packetBuff, 16);
-			packetReceived = 1;
+			
+			done = processPacket(packetBuff);
+
+			// done = 1;
 		} else {
-			puts("...");
+			// puts("...");
 		}
 
 		for(uint32_t x = 0; x < 200; x++) {
 			__asm("nop");
 		}
-	} while(!packetReceived);
+	} while(!done);
 
-	if(protoXChecksum(packetBuff, 16) == 0) {
-		printf("Good packet! [");
-		for(uint8_t x = 0; x < 16; x++) {
-			printf("%02X ", packetBuff[x]);
-		}
-		printf("]\n");
-	} else {
-		printf("Bad packet! [");
-		for(uint8_t x = 0; x < 16; x++) {
-			printf("%02X ", packetBuff[x]);
-		}
-		printf("]\n");
-	}
+	
 }
