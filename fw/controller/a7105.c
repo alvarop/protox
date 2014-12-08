@@ -89,6 +89,24 @@ typedef struct {
 	uint8_t val;
 } regSetting_t;
 
+typedef struct {
+	uint8_t packetType;
+	uint8_t unknown1;
+	uint8_t throttle;
+	uint8_t unknown2;
+	uint8_t yaw;
+	uint8_t unknown3;
+	uint8_t pitch;
+	uint8_t unknown4;
+	uint8_t roll;
+	uint8_t flips;
+	uint8_t unknown5;
+	uint8_t unknown6;
+	uint8_t unknown7;
+	uint8_t unknown8;
+	uint8_t unknown9;
+} __attribute__((packed)) controlPacket_t;
+
 static const regSetting_t initialSettings[] = {
 	{MODE_CTL,					0x62},
 	{CAL_CTL,					0x00},
@@ -363,8 +381,10 @@ static const uint8_t channels[] = {0x14, 0x1e, 0x28, 0x32, 0x3c, 0x46, 0x50, 0x5
 static uint32_t rssiValues[sizeof(channels)];
 #define RSSI_SAMPLES (15)
 
+static uint8_t bestChannel = 0;
+
 int32_t a7105SetBestChannel() {
-	uint8_t bestChannel = 0;
+	
 
 	a7105SetChannel(0xA0);
 	a7105Strobe(STROBE_RX);
@@ -481,6 +501,8 @@ void protoXSendPacket(uint8_t *buff, uint8_t len) {
 
 uint8_t magicalPacket[] = {0x01, 0x82, 0xC0, 0xAC, 0xD8, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
+controlPacket_t controlPacket = {0x20, 0x00, 0x00, 0x00, 0x80, 0x00, 0x6C, 0x00, 0x80, 0x06, 0x19, 0x00, 0x00, 0x00, 0x00};
+
 typedef enum {COUNT1, COUNT2, COUNT3} connectState_t;
 static connectState_t state = COUNT1;
 
@@ -490,7 +512,6 @@ int32_t processPacket(uint8_t *packet) {
 	if(protoXChecksum(packet, 16) == 0) {
 		switch(state) {
 			case COUNT1: {
-				puts("1");
 				if(packet[0] == 4) {
 					magicalPacket[0] = 1;
 
@@ -505,7 +526,6 @@ int32_t processPacket(uint8_t *packet) {
 			}
 
 			case COUNT2: {
-				puts("2");
 				magicalPacket[0] = 0x9;
 				magicalPacket[2] = 0x00;
 				state = COUNT3;
@@ -513,10 +533,12 @@ int32_t processPacket(uint8_t *packet) {
 			}
 
 			case COUNT3: {
-				puts("3");
 				if(packet[1] == 9) {
 					magicalPacket[0] = 1;	
 					state = COUNT1;
+
+					// Start encrypting data?
+					a7105WriteReg(CODE_I, 0x0F);
 					rval = 1;
 				} else {
 					magicalPacket[2] = packet[1];
@@ -539,6 +561,8 @@ int32_t processPacket(uint8_t *packet) {
 
 void protoXRemote() {
 	uint32_t timeout;
+	uint32_t timeToCHSwitch;
+	uint32_t channelRefresh = 0;
 	uint32_t done = 0;
 	printf("Starting remote\n");
 	do {
@@ -556,10 +580,6 @@ void protoXRemote() {
 			a7105Read(FIFO_DATA, packetBuff, 16);
 			
 			done = processPacket(packetBuff);
-
-			// done = 1;
-		} else {
-			// puts("...");
 		}
 
 		for(uint32_t x = 0; x < 200; x++) {
@@ -567,5 +587,67 @@ void protoXRemote() {
 		}
 	} while(!done);
 
+	timeToCHSwitch = tickMs + 5;
+
+	puts("idle");
+	for(uint32_t vroom = 0; vroom < 64; vroom++){
 	
+		if(channelRefresh) {
+			channelRefresh = 0;
+			a7105SetChannel(channels[bestChannel]);
+			timeToCHSwitch = tickMs + 5;
+		} else if(tickMs > timeToCHSwitch) {
+			a7105SetChannel(0xA5);
+			channelRefresh = 1;
+		}
+
+		timeout = tickMs + 10;
+		controlPacket.throttle = 0;
+		protoXSendPacket((uint8_t *)&controlPacket, 15);
+
+		while(timeout > tickMs);
+	}
+
+	puts("rampup");
+	for(uint32_t vroom = 0; vroom < 64; vroom++){
+		
+		if(channelRefresh) {
+			channelRefresh = 0;
+			a7105SetChannel(channels[bestChannel]);
+			timeToCHSwitch = tickMs + 5;
+		} else if(tickMs > timeToCHSwitch) {
+			a7105SetChannel(0xA5);
+			channelRefresh = 1;
+		}
+
+		timeout = tickMs + 10;
+		controlPacket.throttle = vroom * 2;
+		protoXSendPacket((uint8_t *)&controlPacket, 15);
+
+		while(timeout > tickMs);
+	}
+
+	puts("rampdown");
+
+	for(uint32_t vroom = 64; vroom > 0; vroom--){
+		
+		if(channelRefresh) {
+			channelRefresh = 0;
+			a7105SetChannel(channels[bestChannel]);
+			timeToCHSwitch = tickMs + 5;
+		} else if(tickMs > timeToCHSwitch) {
+			a7105SetChannel(0xA5);
+			channelRefresh = 1;
+		}
+
+		timeout = tickMs + 10;
+		controlPacket.throttle = vroom * 2;
+		protoXSendPacket((uint8_t *)&controlPacket, 15);
+
+		while(timeout > tickMs);
+	}
+
+	puts("done");
+
+		
 }
