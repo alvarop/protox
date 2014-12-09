@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D0D45A5F-025C-4345-954D-F364C649AF8A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ProtoXRemote</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>CFD22B56705636CBC90FD656A55E472F23FC6900</key>
+		<string>github.com:alvarop/protox.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>sw/ProtoXRemote/ProtoXRemote.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>CFD22B56705636CBC90FD656A55E472F23FC6900</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:alvarop/protox.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CFD22B56705636CBC90FD656A55E472F23FC6900</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CFD22B56705636CBC90FD656A55E472F23FC6900</string>
+			<key>IDESourceControlWCCName</key>
+			<string>protox</string>
+		</dict>
+	</array>
+</dict>
+</plist>
