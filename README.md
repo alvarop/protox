@@ -10,6 +10,8 @@ This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome
 #### Super Current
 We have control!!! I gave up waiting for the radio modules to arrive, so instead I removed the STM8 microcontroller from one of the remotes and connected an STM32F4 to it instead. Well, just the SPI lines that go to the radio... After a day of fighting with the half-duplex SPI code, I managed to get pairing working. Turns out the remote changes its own ID to match the quad's and enables encryption after pairing. 
 
+![Hijacked Remote](/images/IMG_2354.jpg)
+
 I haven't had time to play with it much, but I managed to get a quick throttle ramp up/down working. You can watch the video [on youtube.](http://www.youtube.com/watch?v=5Op-pvrtTcU)
 
 I wrote a quick app to send commands to the remote. Since I was in a rush, I re-purposed an app I used to test [my laser turret](http://alvarop.com/2014/11/laser-turret-project-mechanical/) over the summer, so it wasn't ideal. I controlled the throttle with a slider bar and pitch/roll with by holding and dragging the mouse across the window. You can watch a [video of that here](http://youtu.be/NUGXJX7mko0).
