@@ -5,5 +5,6 @@
 
 void a7105Init();
 void protoXRemote();
+int32_t a7105Process();
 
 #endif

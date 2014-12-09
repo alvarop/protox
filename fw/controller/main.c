@@ -10,6 +10,7 @@
 #include "usbd_cdc_vcp.h"
 
 #include "console.h"
+#include "a7105.h"
 
 #define BLINK_DELAY_MS	(500)
 
@@ -30,6 +31,7 @@ int main(void) {
 
 	nextBlink = tickMs + BLINK_DELAY_MS;
 	for(;;) {
+		int32_t stopWFI = 0;
 
 		consoleProcess();
 
@@ -43,7 +45,11 @@ int main(void) {
 			blinkState ^= 1;
 		}
 
-		__WFI();
+		stopWFI += a7105Process();
+
+		if(stopWFI == 0) {
+			__WFI();
+		}
 		
 	}
 

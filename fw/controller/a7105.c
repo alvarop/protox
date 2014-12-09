@@ -158,6 +158,9 @@ static const regSetting_t initialSettings[] = {
 
 extern volatile uint32_t tickMs;
 
+typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING} remoteState_t;
+remoteState_t remoteState = IDLE;
+
 static void msDelay(uint32_t delay) {
 	uint32_t finishTime = tickMs + delay;
 
@@ -560,94 +563,87 @@ int32_t processPacket(uint8_t *packet) {
 }
 
 void protoXRemote() {
-	uint32_t timeout;
-	uint32_t timeToCHSwitch;
-	uint32_t channelRefresh = 0;
-	uint32_t done = 0;
-	printf("Starting remote\n");
-	do {
-		protoXSendPacket(magicalPacket, 15);
+	remoteState = SEND_PACKET;
+}
 
-		a7105Strobe(STROBE_RX);
 
-		timeout = tickMs + 14;
+int32_t a7105Process() {
 
-		while ((a7105ReadReg(MODE) & MODE_TRER) && (timeout > tickMs));
+	static uint32_t timeout = 0;
+	static uint32_t timeToCHSwitch = 0;
+	static uint32_t channelRefresh = 0;
+	uint32_t stopWFI = 0;
 
-		// Heard it!
-		if (timeout > tickMs) {
-			a7105Strobe(STROBE_FIFO_RD_RST);
-			a7105Read(FIFO_DATA, packetBuff, 16);
-			
-			done = processPacket(packetBuff);
+	switch(remoteState) {
+		case IDLE: {
+			stopWFI = 0;
+			break;
 		}
 
-		for(uint32_t x = 0; x < 200; x++) {
-			__asm("nop");
-		}
-	} while(!done);
+		case SEND_PACKET: {
 
-	timeToCHSwitch = tickMs + 5;
+			protoXSendPacket(magicalPacket, 15);
 
-	puts("idle");
-	for(uint32_t vroom = 0; vroom < 64; vroom++){
-	
-		if(channelRefresh) {
-			channelRefresh = 0;
-			a7105SetChannel(channels[bestChannel]);
-			timeToCHSwitch = tickMs + 5;
-		} else if(tickMs > timeToCHSwitch) {
-			a7105SetChannel(0xA5);
-			channelRefresh = 1;
+			a7105Strobe(STROBE_RX);
+
+			timeout = tickMs + 14;
+
+			remoteState = WAIT_FOR_REPLY;
+
+			// Don't let the processor go to sleep while we're pairing
+			stopWFI = 1;
+
+			break;
 		}
 
-		timeout = tickMs + 10;
-		controlPacket.throttle = 0;
-		protoXSendPacket((uint8_t *)&controlPacket, 15);
+		case WAIT_FOR_REPLY: {
 
-		while(timeout > tickMs);
+			// Heard it!
+			if ((a7105ReadReg(MODE) & MODE_TRER) == 0) {
+				puts("rx");
+				a7105Strobe(STROBE_FIFO_RD_RST);
+				a7105Read(FIFO_DATA, packetBuff, 16);
+				
+				if(processPacket(packetBuff)) {
+					remoteState = RUNNING;
+					timeToCHSwitch = tickMs + 50;
+					timeout = tickMs;
+				} else {
+					remoteState = SEND_PACKET;
+				}
+			} else if(tickMs >= timeout) {
+				remoteState = SEND_PACKET;
+			}
+
+			// Don't let the processor go to sleep while we're pairing
+			stopWFI = 1;
+
+			break;
+		}
+
+		case RUNNING: {
+
+			if(tickMs >= timeout){
+				timeout = tickMs + 10;
+
+				if(channelRefresh) {
+					channelRefresh = 0;
+					a7105SetChannel(channels[bestChannel]);
+					timeToCHSwitch = tickMs + 50;
+				} else if(tickMs >= timeToCHSwitch) {
+					a7105SetChannel(0xA5);
+					channelRefresh = 1;
+				}
+
+				protoXSendPacket((uint8_t *)&controlPacket, 15);
+			}
+
+			// We're dealing with 10 ms timings, so waking up on systick should be ok
+			stopWFI = 0;
+
+			break;
+		}
 	}
 
-	puts("rampup");
-	for(uint32_t vroom = 0; vroom < 64; vroom++){
-		
-		if(channelRefresh) {
-			channelRefresh = 0;
-			a7105SetChannel(channels[bestChannel]);
-			timeToCHSwitch = tickMs + 5;
-		} else if(tickMs > timeToCHSwitch) {
-			a7105SetChannel(0xA5);
-			channelRefresh = 1;
-		}
-
-		timeout = tickMs + 10;
-		controlPacket.throttle = vroom * 2;
-		protoXSendPacket((uint8_t *)&controlPacket, 15);
-
-		while(timeout > tickMs);
-	}
-
-	puts("rampdown");
-
-	for(uint32_t vroom = 64; vroom > 0; vroom--){
-		
-		if(channelRefresh) {
-			channelRefresh = 0;
-			a7105SetChannel(channels[bestChannel]);
-			timeToCHSwitch = tickMs + 5;
-		} else if(tickMs > timeToCHSwitch) {
-			a7105SetChannel(0xA5);
-			channelRefresh = 1;
-		}
-
-		timeout = tickMs + 10;
-		controlPacket.throttle = vroom * 2;
-		protoXSendPacket((uint8_t *)&controlPacket, 15);
-
-		while(timeout > tickMs);
-	}
-
-	puts("done");
-
-		
+	return stopWFI;
 }
