@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "a7105.h"
 #include "console.h"
 #include "fifo.h"
@@ -52,11 +53,45 @@ static void helpFn(uint8_t argc, char *argv[]) {
 
 static void initRadio(uint8_t argc, char *argv[]) {
 	a7105Init();
-	protoXRemote();
+	protoXRemoteStart();
 }
 
 static void remote(uint8_t argc, char *argv[]) {
-	protoXRemote();
+	switch(argc) {
+		case 3: {
+			switch(argv[1][0]) {
+				case 't': {
+					protoXSetThrottle((uint8_t)strtoul(argv[2], NULL, 10));
+					break;
+				}
+
+				case 'p': {
+					protoXSetPitch((uint8_t)strtoul(argv[2], NULL, 10));
+					break;
+				}
+
+				case 'y': {
+					protoXSetYaw((uint8_t)strtoul(argv[2], NULL, 10));
+					break;
+				}
+
+				case 'r': {
+					protoXSetRoll((uint8_t)strtoul(argv[2], NULL, 10));
+					break;
+				}
+			}
+
+			break;
+		}
+
+		case 5: {
+			protoXSetThrottle((uint8_t)strtoul(argv[1], NULL, 10));
+			protoXSetPitch((uint8_t)strtoul(argv[2], NULL, 10));
+			protoXSetYaw((uint8_t)strtoul(argv[3], NULL, 10));
+			protoXSetRoll((uint8_t)strtoul(argv[4], NULL, 10));
+		}
+	}
+
 }
 
 

@@ -84,6 +84,8 @@
 #define MODE_TRSR		(1 << 1)
 #define MODE_TRER		(1 << 0)
 
+#define RSSI_SAMPLES (15)
+
 typedef struct {
 	uint8_t addr;
 	uint8_t val;
@@ -106,6 +108,9 @@ typedef struct {
 	uint8_t unknown8;
 	uint8_t unknown9;
 } __attribute__((packed)) controlPacket_t;
+
+typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING} remoteState_t;
+typedef enum {COUNT1, COUNT2, COUNT3} connectState_t;
 
 static const regSetting_t initialSettings[] = {
 	{MODE_CTL,					0x62},
@@ -158,8 +163,15 @@ static const regSetting_t initialSettings[] = {
 
 extern volatile uint32_t tickMs;
 
-typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING} remoteState_t;
-remoteState_t remoteState = IDLE;
+static const uint8_t channels[] = {0x14, 0x1e, 0x28, 0x32, 0x3c, 0x46, 0x50, 0x5a, 0x64, 0x6e, 0x78, 0x82};
+static uint8_t magicalPacket[] = {0x01, 0x82, 0xC0, 0xAC, 0xD8, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+static controlPacket_t controlPacket = {0x20, 0x00, 0x00, 0x00, 0x80, 0x00, 0x6C, 0x00, 0x80, 0x06, 0x19, 0x00, 0x00, 0x00, 0x00};
+
+static connectState_t state = COUNT1;
+static remoteState_t remoteState = IDLE;
+
+static uint32_t rssiValues[sizeof(channels)];
+static uint8_t bestChannel = 0;
 
 static void msDelay(uint32_t delay) {
 	uint32_t finishTime = tickMs + delay;
@@ -219,7 +231,6 @@ static int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 		for(uint32_t x = 0; x < 1000; x++) {
 			__asm("nop");
 		}
-
 
 		return 0;
 	} else {
@@ -380,15 +391,8 @@ static void a7105Calibrate() {
 	puts("Calibration complete");
 }
 
-static const uint8_t channels[] = {0x14, 0x1e, 0x28, 0x32, 0x3c, 0x46, 0x50, 0x5a, 0x64, 0x6e, 0x78, 0x82};
-static uint32_t rssiValues[sizeof(channels)];
-#define RSSI_SAMPLES (15)
-
-static uint8_t bestChannel = 0;
-
+// TODO - build this into the main process as well?
 int32_t a7105SetBestChannel() {
-	
-
 	a7105SetChannel(0xA0);
 	a7105Strobe(STROBE_RX);
 
@@ -502,13 +506,6 @@ void protoXSendPacket(uint8_t *buff, uint8_t len) {
 	while (a7105ReadReg(MODE) & MODE_TRER);
 }
 
-uint8_t magicalPacket[] = {0x01, 0x82, 0xC0, 0xAC, 0xD8, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-
-controlPacket_t controlPacket = {0x20, 0x00, 0x00, 0x00, 0x80, 0x00, 0x6C, 0x00, 0x80, 0x06, 0x19, 0x00, 0x00, 0x00, 0x00};
-
-typedef enum {COUNT1, COUNT2, COUNT3} connectState_t;
-static connectState_t state = COUNT1;
-
 int32_t processPacket(uint8_t *packet) {
 	int32_t rval = 0;
 
@@ -562,10 +559,25 @@ int32_t processPacket(uint8_t *packet) {
 	return rval;
 }
 
-void protoXRemote() {
+void protoXRemoteStart() {
 	remoteState = SEND_PACKET;
 }
 
+void protoXSetThrottle(uint8_t throttle) {
+	controlPacket.throttle = throttle;
+}
+
+void protoXSetPitch(uint8_t pitch) {
+	controlPacket.pitch = pitch;
+}
+
+void protoXSetYaw(uint8_t yaw) {
+	controlPacket.yaw = yaw;
+}
+
+void protoXSetRoll(uint8_t roll) {
+	controlPacket.roll = roll;
+}
 
 int32_t a7105Process() {
 
@@ -600,7 +612,6 @@ int32_t a7105Process() {
 
 			// Heard it!
 			if ((a7105ReadReg(MODE) & MODE_TRER) == 0) {
-				puts("rx");
 				a7105Strobe(STROBE_FIFO_RD_RST);
 				a7105Read(FIFO_DATA, packetBuff, 16);
 				
