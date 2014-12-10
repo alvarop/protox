@@ -4,6 +4,8 @@ I'm trying to reverse engineer the [ProtoX](http://www.protoquad.com) radio prot
 
 This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome [Coastermelt](https://vimeo.com/channels/coastermelt) videos. Check them out if you haven't already! The ProtoX project is much simpler, but I have to start somewhere...
 
+**NOTE:** While there's some basic information about the project results on this page, most of the details are in other files/pages. 
+
 ![Remote+Quad](/images/IMG_2328.jpg)
 
 ### Current Status
@@ -16,7 +18,7 @@ I haven't had time to play with it much, but I managed to get a quick throttle r
 
 I wrote a quick app to send commands to the remote. Since I was in a rush, I re-purposed an app I used to test [my laser turret](http://alvarop.com/2014/11/laser-turret-project-mechanical/) over the summer, so it wasn't ideal. I controlled the throttle with a slider bar and pitch/roll with by holding and dragging the mouse across the window. You can watch a [video of that here](http://youtu.be/NUGXJX7mko0).
 
-I spent some more time with the app to make it more useable. The throttle and yaw/rotation are controlled with the keyboard (standard WASD controls) and pitch/roll is still controlled by the mouse. While I was able to fly the quadcopter, I wouldn't recommend using a mouse and keyboard set up to do it. You can [see the app in action here](https://www.youtube.com/watch?v=BfARBlWldN0).
+I spent some more time with the app to make it more useable. The throttle and yaw/rotation are controlled with the keyboard (standard WASD controls) and pitch/roll is still controlled by the mouse. While I was able to fly the quadcopter, I wouldn't recommend using a mouse and keyboard setup to do it. You can [see the app in action here](https://www.youtube.com/watch?v=BfARBlWldN0).
 
 #### Not So Current
 I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I export the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'. You can see an example processed capture [here](processeddata/connect2.processed.txt).
@@ -46,9 +48,12 @@ See [notes.md](notes.md) for miscellaneous project notes and intermediate result
 
 See [hardware.md](hardware.md) for hardware notes (pinouts, etc...)
 
-
 See [a7105.py](a7105.py) for python module that decodes A7105 SPI packets into readable text
 
 See [checksum.py](checksum.py) for packet checksum computation and explanation.
 
 See [quadcsv.py](quadcsv.py) for script to process Saleae Logic SPI CSV data into more manageable chunks
+
+See the [fw/controller](fw/controller) directory for the STM32F4 firmware I'm using to bridge between the radio and computer (via USB)
+
+See (or don't, it's terrible) [sw/ProtoXRemote](sw/ProtoXRemote) for an OSX app that translates mouse and keyboard movement to controls for the quadcopter.
