@@ -16,6 +16,8 @@ I haven't had time to play with it much, but I managed to get a quick throttle r
 
 I wrote a quick app to send commands to the remote. Since I was in a rush, I re-purposed an app I used to test [my laser turret](http://alvarop.com/2014/11/laser-turret-project-mechanical/) over the summer, so it wasn't ideal. I controlled the throttle with a slider bar and pitch/roll with by holding and dragging the mouse across the window. You can watch a [video of that here](http://youtu.be/NUGXJX7mko0).
 
+I spent some more time with the app to make it more useable. The throttle and yaw/rotation are controlled with the keyboard (standard WASD controls) and pitch/roll is still controlled by the mouse. While I was able to fly the quadcopter, I wouldn't recommend using a mouse and keyboard set up to do it. You can [see the app in action here](https://www.youtube.com/watch?v=BfARBlWldN0).
+
 #### Not So Current
 I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I export the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'. You can see an example processed capture [here](processeddata/connect2.processed.txt).
 
