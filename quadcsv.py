@@ -9,8 +9,17 @@ import argparse
 # 
 # Use this script to process Saleae Logic captured SPI data (from CSV) to more manageable chunks
 # 
-# It works *most* of the time, but we do get some split packets from time to time. (due to a bad CS signal)
-# I also added duplicate packet detection so we don't print the same thing over and over
+# I added duplicate packet detection so we don't print the same thing over and over
+# I've also added packet decoding, so you get some human readable stuff
+# Check out the a7105.py file for details on the decoding
+# 
+# Here are some examples running the script
+# For a single capture and no decoding:
+# $ python quadcsv.py -r rawdata/connect2.csv
+# 
+# or for a dual-capture with decoding:
+# $ python ./quadcsv.py -r rawdata/dual-capture-remote.csv -q rawdata/dual-capture-quad.csv -d
+# 
 # 
 # Input file looks like this:
 # 4.406020080000000,41055,0x40,
@@ -42,7 +51,7 @@ import argparse
 # 4.406995680000000,41062,0x40,
 # 4.407030400000000,41062,0x1B,
 # 
-# Output looks like:
+# Processed output looks like:
 # 40 19  (Repeated 148 times)
 # a0 
 # e0 
@@ -53,6 +62,18 @@ import argparse
 # c0 
 # 40 19  (Repeated 148 times)
 #
+
+# Decoded output looks like:
+# remote 3.621992 R MODE: FECOK  CRCOK  RFEN  XEN  PLLDIS TRXDIS TX  (Repeated 148 times)
+# remote 3.622030 S Standby Mode
+# remote 3.622067 S FIFO Write pointer reset
+# remote 3.622698 W FIFO [01 82 C0 AC D8 41 00 00 00 00 00 00 00 00 00 F8]
+# remote 3.622736 S TX Mode
+# remote 3.624740 R MODE: FECOK  CRCOK  RFEN  XEN  PLLDIS TRXEN  TX  (Repeated 26 times)
+# remote 3.624814 R MODE: FECOK  CRCOK  RFEN  XEN  PLLDIS TRXEN  RX 
+# remote 3.624854 S RX Mode
+# remote 3.636266 R MODE: FECOK  CRCOK  RFEN  XEN  PLLDIS TRXDIS TX  (Repeated 148 times)
+
 
 # 
 # Open CSV file with SPI capture and generate packets
