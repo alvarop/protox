@@ -9,9 +9,11 @@
 #import <Cocoa/Cocoa.h>
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
-- (IBAction)throttleChanged:(id)sender;
-- (IBAction)yawChanged:(id)sender;
 - (IBAction)StartButton:(id)sender;
+@property (weak) IBOutlet NSSlider *ThrottleSlider;
+@property (weak) IBOutlet NSSlider *PitchSlider;
+@property (weak) IBOutlet NSSlider *YawSlider;
+@property (weak) IBOutlet NSSlider *RollSlider;
 
 @end
 

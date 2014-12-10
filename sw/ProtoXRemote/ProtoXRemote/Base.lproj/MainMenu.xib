@@ -13,6 +13,10 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="PitchSlider" destination="EXg-um-kPJ" id="lOM-ZG-A6u"/>
+                <outlet property="RollSlider" destination="OGq-bM-rvt" id="ZPa-cU-JzV"/>
+                <outlet property="ThrottleSlider" destination="Vcn-n1-4fU" id="Uqh-q5-d0F"/>
+                <outlet property="YawSlider" destination="A39-WS-aDb" id="b77-q1-QKc"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -671,28 +675,19 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="360"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
-            <view key="contentView" id="EiT-Mj-1SZ">
+            <view key="contentView" id="EiT-Mj-1SZ" customClass="DBCMouseView">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2SR-Hh-smy" customClass="DBCMouseView">
-                        <rect key="frame" x="20" y="23" width="406" height="317"/>
-                    </customView>
-                    <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-n1-4fU">
+                    <slider horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-n1-4fU">
                         <rect key="frame" x="436" y="52" width="21" height="257"/>
                         <sliderCell key="cell" continuous="YES" alignment="left" maxValue="255" tickMarkPosition="right" allowsTickMarkValuesOnly="YES" sliderType="linear" id="e89-J6-D3A"/>
-                        <connections>
-                            <action selector="throttleChanged:" target="Voe-Tx-rLC" id="VuA-Wc-R1l"/>
-                        </connections>
                     </slider>
-                    <slider horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A39-WS-aDb">
+                    <slider horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A39-WS-aDb">
                         <rect key="frame" x="432" y="20" width="28" height="30"/>
-                        <sliderCell key="cell" continuous="YES" alignment="left" minValue="-50" maxValue="50" tickMarkPosition="left" allowsTickMarkValuesOnly="YES" sliderType="circular" id="rFe-qB-uvn"/>
-                        <connections>
-                            <action selector="yawChanged:" target="Voe-Tx-rLC" id="pZL-Ox-9tT"/>
-                        </connections>
+                        <sliderCell key="cell" continuous="YES" alignment="left" minValue="-50" maxValue="50" tickMarkPosition="above" allowsTickMarkValuesOnly="YES" sliderType="circular" id="rFe-qB-uvn"/>
                     </slider>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xtg-LR-cql">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xtg-LR-cql">
                         <rect key="frame" x="422" y="312" width="49" height="32"/>
                         <buttonCell key="cell" type="push" title="S" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aZT-Hi-biN">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -702,7 +697,30 @@
                             <action selector="StartButton:" target="Voe-Tx-rLC" id="4hi-3j-l0G"/>
                         </connections>
                     </button>
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OGq-bM-rvt">
+                        <rect key="frame" x="18" y="18" width="410" height="21"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" tickMarkPosition="above" sliderType="linear" id="07Q-MO-2eq"/>
+                    </slider>
+                    <slider horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EXg-um-kPJ">
+                        <rect key="frame" x="18" y="42" width="21" height="300"/>
+                        <sliderCell key="cell" continuous="YES" alignment="left" minValue="-100" maxValue="100" tickMarkPosition="right" sliderType="linear" id="NM5-xU-X0i"/>
+                    </slider>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="EXg-um-kPJ" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="0Xx-Th-ke5"/>
+                    <constraint firstItem="EXg-um-kPJ" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="4v9-JM-Id3"/>
+                    <constraint firstItem="Xtg-LR-cql" firstAttribute="centerX" secondItem="Vcn-n1-4fU" secondAttribute="centerX" id="6gi-Az-Mlz"/>
+                    <constraint firstItem="A39-WS-aDb" firstAttribute="leading" secondItem="OGq-bM-rvt" secondAttribute="trailing" constant="8" symbolic="YES" id="AO4-er-xaJ"/>
+                    <constraint firstAttribute="trailing" secondItem="Xtg-LR-cql" secondAttribute="trailing" constant="15" id="DEk-9z-ujz"/>
+                    <constraint firstItem="EXg-um-kPJ" firstAttribute="top" secondItem="Xtg-LR-cql" secondAttribute="top" id="HPH-PM-M62"/>
+                    <constraint firstAttribute="bottom" secondItem="OGq-bM-rvt" secondAttribute="bottom" constant="20" symbolic="YES" id="KNz-MZ-9Ge"/>
+                    <constraint firstItem="OGq-bM-rvt" firstAttribute="top" secondItem="EXg-um-kPJ" secondAttribute="bottom" constant="8" symbolic="YES" id="OGn-aW-f5d"/>
+                    <constraint firstItem="OGq-bM-rvt" firstAttribute="leading" secondItem="EXg-um-kPJ" secondAttribute="leading" id="T14-kw-Lj9"/>
+                    <constraint firstAttribute="bottom" secondItem="A39-WS-aDb" secondAttribute="bottom" constant="23" id="fVY-Ue-cif"/>
+                    <constraint firstItem="Vcn-n1-4fU" firstAttribute="top" secondItem="Xtg-LR-cql" secondAttribute="bottom" constant="12" id="fg9-jU-DTn"/>
+                    <constraint firstItem="A39-WS-aDb" firstAttribute="top" secondItem="Vcn-n1-4fU" secondAttribute="bottom" constant="8" symbolic="YES" id="k3B-Hg-rNG"/>
+                    <constraint firstItem="Vcn-n1-4fU" firstAttribute="centerX" secondItem="A39-WS-aDb" secondAttribute="centerX" id="tDI-HW-YaE"/>
+                </constraints>
             </view>
         </window>
     </objects>

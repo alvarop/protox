@@ -40,23 +40,29 @@
 
 - (void) mouseUpdate:(NSNotification *) notification
 {
-	[connection sendCommand:[NSString stringWithFormat:@"remote r %d\n", (128 - [[[notification userInfo] objectForKey:kPosX] intValue]) ]];
-	[connection sendCommand:[NSString stringWithFormat:@"remote p %d\n", (128 - [[[notification userInfo] objectForKey:kPosY] intValue]) ]];
+	
+	if([[notification userInfo] objectForKey:kPosX]) {
+		[connection sendCommand:[NSString stringWithFormat:@"remote r %d\n", (128 - [[[notification userInfo] objectForKey:kPosX] intValue]) ]];
+		[_RollSlider setFloatValue:[[[notification userInfo] objectForKey:kPosX] floatValue]];
+	}
+	if([[notification userInfo] objectForKey:kPosY]) {
+		[connection sendCommand:[NSString stringWithFormat:@"remote p %d\n", (128 - [[[notification userInfo] objectForKey:kPosY] intValue]) ]];
+		[_PitchSlider setFloatValue:[[[notification userInfo] objectForKey:kPosY] floatValue]];
+	}
+	
+	if([[notification userInfo] objectForKey:kPosYaw]) {
+		[connection sendCommand:[NSString stringWithFormat:@"remote y %d\n", (128 - [[[notification userInfo] objectForKey:kPosYaw] intValue]) ]];
+		[_YawSlider setFloatValue:[[[notification userInfo] objectForKey:kPosYaw] floatValue]];
+	}
+	if([[notification userInfo] objectForKey:kPosThrottle]) {
+		[connection sendCommand:[NSString stringWithFormat:@"remote t %d\n", ([[[notification userInfo] objectForKey:kPosThrottle] intValue]) ]];
+		[_ThrottleSlider setFloatValue:[[[notification userInfo] objectForKey:kPosThrottle] floatValue ]];
+		
+	}
 	
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender { return TRUE; }
-
-
-- (IBAction)throttleChanged:(id)sender {
-	int16_t value = (int16_t)([(NSSlider *)sender floatValue]);
-	[connection sendCommand:[NSString stringWithFormat:@"remote t %d\n", value]];
-}
-
-- (IBAction)yawChanged:(id)sender {
-	int16_t value = (int16_t)([(NSSlider *)sender floatValue] + 128);
-	[connection sendCommand:[NSString stringWithFormat:@"remote y %d\n", value]];
-}
 
 - (IBAction)StartButton:(id)sender {
 	[connection sendCommand:@"asdf\n\ninit\n"];

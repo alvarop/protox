@@ -11,6 +11,8 @@
 extern NSString * const kPosUpdate;
 extern NSString * const kPosX;
 extern NSString * const kPosY;
+extern NSString * const kPosThrottle;
+extern NSString * const kPosYaw;
 
 @interface DBCMouseView : NSView
 
