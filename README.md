@@ -10,7 +10,7 @@ This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome
 
 ### Current Status
 #### Super Current
-I screwed up and thought they used encryption. They do write to teh data whitening/encryption register during pairing, but only to enable CRC on the radio! This means listening in (and possibly jumping in) is much easier than I previously thought.
+I screwed up and thought they used encryption. They do write to the data whitening/encryption register during pairing, but only to enable CRC on the radio! This means listening in (and possibly jumping in) is much easier than I previously thought.
 
 I've added a bunch of packet sniffing features to the firmware. It will now scan all channels until it finds a remote transmitting. It won't be able to follow the entire conversation unless it has a matching device ID, so there's a command to set that. There's also one to enable/disable CRC on the radio, so it can listen before and after pairing.
 
