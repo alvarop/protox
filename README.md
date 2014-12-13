@@ -10,6 +10,13 @@ This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome
 
 ### Current Status
 #### Super Current
+I screwed up and thought they used encryption. They do write to teh data whitening/encryption register during pairing, but only to enable CRC on the radio! This means listening in (and possibly jumping in) is much easier than I previously thought.
+
+I've added a bunch of packet sniffing features to the firmware. It will now scan all channels until it finds a remote transmitting. It won't be able to follow the entire conversation unless it has a matching device ID, so there's a command to set that. There's also one to enable/disable CRC on the radio, so it can listen before and after pairing.
+
+When I get a chance, I should be able to set the ID from the conversation it's sniffing and automatically follow the pairing process and change settings accordingly. Another fun feature to add will be capturing an already started conversation and figure out what the ID is to properly set it.
+
+#### Used to be Current
 We have control!!! I gave up waiting for the radio modules to arrive, so instead I removed the STM8 microcontroller from one of the remotes and connected an STM32F4 to it instead. Well, just the SPI lines that go to the radio... After a day of fighting with the half-duplex SPI code, I managed to get pairing working. Turns out the remote changes its own ID to match the quad's and enables ~~encryption~~ radio CRC after pairing. 
 
 ![Hijacked Remote](/images/IMG_2354.jpg)
