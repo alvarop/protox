@@ -10,7 +10,7 @@
 #include "usbd_cdc_vcp.h"
 
 #include "console.h"
-#include "a7105.h"
+#include "protox.h"
 
 #define BLINK_DELAY_MS	(500)
 
@@ -45,7 +45,7 @@ int main(void) {
 			blinkState ^= 1;
 		}
 
-		stopWFI += a7105Process();
+		stopWFI += protoXProcess();
 
 		if(stopWFI == 0) {
 			__WFI();

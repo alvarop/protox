@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "a7105.h"
+#include "protox.h"
 #include "console.h"
 #include "fifo.h"
 
@@ -52,7 +52,7 @@ static void helpFn(uint8_t argc, char *argv[]) {
 }
 
 static void initRadio(uint8_t argc, char *argv[]) {
-	a7105Init();
+	protoXInit();
 	protoXRemoteStart();
 }
 
