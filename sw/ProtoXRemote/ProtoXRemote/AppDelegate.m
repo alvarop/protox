@@ -65,6 +65,6 @@
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender { return TRUE; }
 
 - (IBAction)StartButton:(id)sender {
-	[connection sendCommand:@"asdf\n\ninit\n"];
+	[connection sendCommand:@"\n\ninit\nremote start\n"];
 }
 @end
