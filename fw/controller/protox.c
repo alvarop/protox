@@ -25,12 +25,16 @@ typedef struct {
 	uint8_t unknown9;
 } __attribute__((packed)) controlPacket_t;
 
-typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING} remoteState_t;
+typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING, FIND_REMOTE, SNIFFER} remoteState_t;
 typedef enum {COUNT1, COUNT2, COUNT3} connectState_t;
+
+static char hexStrings[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
 static const uint8_t channels[] = {0x14, 0x1e, 0x28, 0x32, 0x3c, 0x46, 0x50, 0x5a, 0x64, 0x6e, 0x78, 0x82};
 static uint8_t magicalPacket[] = {0x01, 0x82, 0xC0, 0xAC, 0xD8, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 static controlPacket_t controlPacket = {0x20, 0x00, 0x00, 0x00, 0x80, 0x00, 0x6C, 0x00, 0x80, 0x06, 0x19, 0x00, 0x00, 0x00, 0x00};
+
+static uint8_t searchChannel = 0;
 
 static connectState_t state = COUNT1;
 static remoteState_t remoteState = IDLE;
@@ -167,6 +171,40 @@ void protoXRemoteStart() {
 	remoteState = SEND_PACKET;
 }
 
+void protoXSnifferStart() {
+	remoteState = SNIFFER;	
+	a7105Strobe(STROBE_RX);
+}
+
+void protoXSetId(uint8_t *id) {
+	a7105Write(ID_DATA, id, 4);
+}
+
+void protoXSetCh(uint8_t ch) {
+	if(ch < sizeof(channels)) {
+		a7105SetChannel(channels[ch]);	
+	}
+}
+
+void protoXFindRemote() {
+	remoteState = FIND_REMOTE;
+
+	searchChannel = 0;
+
+	a7105SetChannel(channels[searchChannel]);
+	a7105Strobe(STROBE_RX);
+}
+
+void protoXCRCEnable(bool enabled) {
+	if(enabled) {
+		a7105WriteReg(CODE_I, 0x0F);
+	} else {
+		uint8_t reg = a7105ReadReg(CODE_I);
+		reg &= ~0x08;
+		a7105WriteReg(CODE_I, reg);
+	}
+}
+
 void protoXSetThrottle(uint8_t throttle) {
 	controlPacket.throttle = throttle;
 }
@@ -256,6 +294,54 @@ int32_t protoXProcess() {
 			// We're dealing with 10 ms timings, so waking up on systick should be ok
 			stopWFI = 0;
 
+			break;
+		}
+
+		case FIND_REMOTE: {
+
+			if ((a7105ReadReg(MODE) & MODE_TRER) == 0) {
+				a7105Strobe(STROBE_FIFO_RD_RST);
+				a7105Read(FIFO_DATA, packetBuff, 16);
+				
+				if(protoXChecksum(packetBuff, 16) == 0) {
+					printf("Found remote in ch %d\n", searchChannel);
+					remoteState = IDLE;
+				}
+
+			} else if(tickMs >= timeout) {
+				timeout = tickMs + 14;
+
+				searchChannel++;
+
+				if(searchChannel >= sizeof(channels)) {
+					searchChannel = 0;
+				}
+
+				a7105SetChannel(channels[searchChannel]);
+				a7105Strobe(STROBE_RX);
+			}
+			
+			stopWFI = 1;
+			break;
+		}
+
+		case SNIFFER: {
+			// Heard it!
+			if ((a7105ReadReg(MODE) & MODE_TRER) == 0) {
+				a7105Strobe(STROBE_FIFO_RD_RST);
+				a7105Read(FIFO_DATA, packetBuff, 16);
+				a7105Strobe(STROBE_RX);
+				
+				for(uint8_t x = 0; x < 16; x++) {
+					putchar(hexStrings[packetBuff[x] >> 4]);
+					putchar(hexStrings[packetBuff[x] & 0xF]);
+					putchar(' ');
+				}
+				putchar('\n');
+			}
+
+			// Don't let the processor go to sleep while we're pairing
+			stopWFI = 1;
 			break;
 		}
 	}

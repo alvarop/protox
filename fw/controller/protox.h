@@ -1,7 +1,14 @@
 #include <stdint.h>
+#include <stdbool.h>
 
 void protoXInit();
 int32_t protoXProcess();
+
+void protoXSnifferStart();
+void protoXSetCh(uint8_t ch);
+void protoXSetId(uint8_t *id);
+void protoXCRCEnable(bool enabled);
+void protoXFindRemote();
 
 void protoXRemoteStart();
 void protoXSetThrottle(uint8_t throttle);

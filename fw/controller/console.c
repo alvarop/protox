@@ -53,11 +53,38 @@ static void helpFn(uint8_t argc, char *argv[]) {
 
 static void initRadio(uint8_t argc, char *argv[]) {
 	protoXInit();
-	protoXRemoteStart();
 }
 
 static void remote(uint8_t argc, char *argv[]) {
 	switch(argc) {
+		case 2: {
+			if(strcmp("sniff", argv[1]) == 0) {
+				printf("Starting sniffer\n");
+				protoXSnifferStart();
+			}
+
+			if(strcmp("start", argv[1]) == 0) {
+				printf("Starting remote");
+				protoXRemoteStart();
+			}
+
+			if(strcmp("crcon", argv[1]) == 0) {
+				printf("CRC On");
+				protoXCRCEnable(true);
+			}
+
+			if(strcmp("crcoff", argv[1]) == 0) {
+				printf("CRC Off");
+				protoXCRCEnable(false);
+			}
+
+			if(strcmp("find", argv[1]) == 0) {
+				protoXFindRemote();
+			}
+
+			break;
+		}
+
 		case 3: {
 			switch(argv[1][0]) {
 				case 't': {
@@ -79,6 +106,11 @@ static void remote(uint8_t argc, char *argv[]) {
 					protoXSetRoll((uint8_t)strtoul(argv[2], NULL, 10));
 					break;
 				}
+
+				case 'c': {
+					protoXSetCh((uint8_t)strtoul(argv[2], NULL, 10));
+					break;
+				}
 			}
 
 			break;
@@ -90,10 +122,20 @@ static void remote(uint8_t argc, char *argv[]) {
 			protoXSetYaw((uint8_t)strtoul(argv[3], NULL, 10));
 			protoXSetRoll((uint8_t)strtoul(argv[4], NULL, 10));
 		}
+
+		case 6: {
+			if(strcmp("id", argv[1]) == 0) {
+				uint8_t id[4];
+				for(int32_t byte = 0; byte < sizeof(id); byte++)	{
+					id[byte] = (uint8_t)strtoul(argv[2 + byte], NULL, 16);
+				}
+
+				printf("Setting ID to %02X %02X %02X %02X\n", id[0], id[1], id[2], id[3]);
+				protoXSetId(id);
+			}
+		}
 	}
-
 }
-
 
 void consoleProcess() {
 	uint32_t inBytes = fifoSize(&usbRxFifo);
