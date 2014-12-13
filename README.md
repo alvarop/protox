@@ -10,7 +10,7 @@ This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome
 
 ### Current Status
 #### Super Current
-We have control!!! I gave up waiting for the radio modules to arrive, so instead I removed the STM8 microcontroller from one of the remotes and connected an STM32F4 to it instead. Well, just the SPI lines that go to the radio... After a day of fighting with the half-duplex SPI code, I managed to get pairing working. Turns out the remote changes its own ID to match the quad's and enables encryption after pairing. 
+We have control!!! I gave up waiting for the radio modules to arrive, so instead I removed the STM8 microcontroller from one of the remotes and connected an STM32F4 to it instead. Well, just the SPI lines that go to the radio... After a day of fighting with the half-duplex SPI code, I managed to get pairing working. Turns out the remote changes its own ID to match the quad's and enables ~~encryption~~ radio CRC after pairing. 
 
 ![Hijacked Remote](/images/IMG_2354.jpg)
 

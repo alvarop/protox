@@ -141,7 +141,7 @@ int32_t processPacket(uint8_t *packet) {
 					magicalPacket[0] = 1;	
 					state = COUNT1;
 
-					// Start encrypting data?
+					// Enable CRC
 					a7105WriteReg(CODE_I, 0x0F);
 					rval = 1;
 				} else {

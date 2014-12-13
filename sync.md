@@ -10,7 +10,7 @@ After that, the remote goes back to 0x01 (same as before.) The quad responds wit
 
 The remote replies with the original packet, but this time byte 0 is 0x09 and byte 2 is 0x00. The quad then replies to that with byte 0 as 0x0a and byte 1 as 0x01.
 
-They go back an forth incrementing that number. The remote increments byte 2 while the quad increments byte 1. Once they both reach 0x09, encryption is enabled by writing 0xF to the Code Register I (register 0x1F). 
+They go back an forth incrementing that number. The remote increments byte 2 while the quad increments byte 1. Once they both reach 0x09, ~~encryption~~ radio CRC is enabled by writing 0xF to the Code Register I (register 0x1F). 
 
 After that the syncing process seems to be complete and the remote starts sending the normal control packet (with byte 0 of 0x20)
 
