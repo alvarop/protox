@@ -45,7 +45,7 @@ static const regSetting_t initialSettings[] = {
 	{VCO_SINGLE_BAND_CAL_I,		0x00},
 	{VCO_SINGLE_BAND_CAL_II,	0x3b},
 	{BATTERY_DETECT,			0x00},
-	{TX_TEST,					0x17},
+	{TX_TEST,					0x1F}, // 1dBm Tx power :D
 	{RX_DEM_TEST_I,				0x47},
 	{RX_DEM_TEST_II,			0x80},
 	{CHARGE_PUMP_CURRENT,		0x03},
@@ -288,7 +288,7 @@ void a7105Init() {
 	spiConfig.SPI_Direction = SPI_Direction_1Line_Tx;
 	spiConfig.SPI_Mode = SPI_Mode_Master;
 	spiConfig.SPI_NSS = SPI_NSS_Soft;
-	spiConfig.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_128; // (APB2PCLK == 42MHz)/128 = 328125 Hz
+	spiConfig.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32; // (APB2PCLK == 42MHz)/128 = 328125 Hz
 
 	SPI_I2S_DeInit(SPI2);
 
