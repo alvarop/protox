@@ -197,6 +197,20 @@ class serialWriteThread(threading.Thread):
 		self.outQueueLock.release()
 		self.outDataAvailable.set()
 
+def processCommand(command):
+	global stateFn
+	
+	command = command.rstrip()
+	if command == 'reset':
+		print('Reset!')
+		stateFn = searching
+		quadCount = 0
+		remoteCount = 0
+		writeThread.write('init\n')
+		# writeThread.write('remote crcoff\n')
+		writeThread.write('remote find\n')
+	else:
+		print('unknown command \'' + command + '\'')
 # 
 #  Start here :D
 # 
@@ -225,7 +239,8 @@ writeThread.write('init\n')
 writeThread.write('remote find\n')
 
 while 1:
-	sleep(1)
-
+	sys.stdout.write('> ')
+	command = sys.stdin.readline()
+	processCommand(command)
 
 sys.exit(0)
