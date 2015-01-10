@@ -18,6 +18,13 @@ def signal_handler(signal, frame):
 	print('exiting')
 	sys.exit(0)
 
+def packetValid(packet):
+	checksum = 0
+	for byte in packet:
+		checksum = (checksum - int(byte,16)) & 0xFF
+
+	return (checksum == 0)
+
 # 
 # Decode protoX packets
 # Only decoding 0x20 (control) packets right now
@@ -54,11 +61,17 @@ def pairingS1(line):
 	global stateFn
 	packetBytes = line.split()
 
-	if len(packetBytes) == 16 and int(packetBytes[0], 16) == 4:
+	if len(packetBytes) == 16 and packetValid(packetBytes) and int(packetBytes[0], 16) == 4:
 		sys.stdout.write('pairingS1 - New ID: ')
 		sys.stdout.write(packetBytes[2] + ' ' + packetBytes[3] + ' ' + packetBytes[4] + ' ' + packetBytes[5] + '\n')
 		writeThread.write('remote id ' + packetBytes[2] + ' ' + packetBytes[3] + ' ' + packetBytes[4] + ' ' + packetBytes[5] + '\n')
 		stateFn = pairingS2
+	elif len(packetBytes) == 16 and packetValid(packetBytes) and int(packetBytes[0], 16) == 0x20:
+		print('must have missaed a packet, go to decoding')
+		stateFn = decoding
+	elif len(packetBytes) == 16 and packetValid(packetBytes) and int(packetBytes[0], 16) == 0x01:
+		print('must have missaed a packet, go back to sniffing')
+		stateFn = sniffing
 	else:
 		sys.stdout.write('pairingS1 - ')
 		sys.stdout.write(line)
@@ -76,12 +89,18 @@ def pairingS2(line):
 	sys.stdout.write('pairingS2 - ')
 	sys.stdout.write(line)
 
-	if len(packetBytes) == 16 and int(packetBytes[0], 16) == 0xA:
+	if len(packetBytes) == 16 and packetValid(packetBytes) and int(packetBytes[0], 16) == 0xA:
 		sys.stdout.write('pairingS2 - ' + packetBytes[1] + '\n')
 		quadCount = int(packetBytes[1], 16)
-	if len(packetBytes) == 16 and  int(packetBytes[0], 16) == 0x9:
+	elif len(packetBytes) == 16 and packetValid(packetBytes) and int(packetBytes[0], 16) == 0x9:
 		sys.stdout.write('pairingS2 - ' + packetBytes[2] + '\n')
 		remoteCount = int(packetBytes[2], 16)
+	elif len(packetBytes) == 16 and packetValid(packetBytes) and int(packetBytes[0], 16) == 0x20:
+		print('must have missaed a packet, go to decoding')
+		stateFn = decoding
+	elif len(packetBytes) == 16 and packetValid(packetBytes) and int(packetBytes[0], 16) == 0x01:
+		print('must have missaed a packet, go back to sniffing')
+		stateFn = sniffing
 	# else:
 		# sys.stdout.write('pairingS2 - ')
 		# sys.stdout.write(line)
@@ -97,16 +116,17 @@ def pairingS2(line):
 # 
 def decoding(line):
 	global stateFn
+	packetBytes = line.split()
 
-	if len(line.split()) == 16:
+	if len(packetBytes) == 16:
 		packet = array.array('B')
 
 		# Make byte array instead of strings for actual processing
-		for byte in line.split():
+		for byte in packetBytes:
 			packet.append(int(byte,16))
 
 		packetString = decodePacket(packet)
-		if len(packetString) > 1:
+		if len(packetString) > 1 and packetValid(packetBytes):
 			sys.stdout.write('decode - ' +  packetString + '\n')
 	else:
 		sys.stdout.write('decode - ' + line + '\n')
@@ -118,10 +138,11 @@ def sniffing(line):
 	global stateFn
 	packetBytes = line.split()
 	
-	if len(packetBytes) == 16 and int(packetBytes[0], 16) > 1:
+	if len(packetBytes) == 16 and packetValid(packetBytes) and int(packetBytes[0], 16) > 1:
 		sys.stdout.write('sniffing - reply from quad. Begin pairing.\n')
 		stateFn = pairingS1
-		
+	elif len(packetBytes) == 16 and not packetValid(packetBytes):
+		sys.stdout.write('sniffing - CRC ERR\n')
 	else:
 		sys.stdout.write('sniffing - ')
 		sys.stdout.write(line)
