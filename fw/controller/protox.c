@@ -28,6 +28,8 @@ typedef struct {
 typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING, FIND_REMOTE, SNIFFER} remoteState_t;
 typedef enum {COUNT1, COUNT2, COUNT3} connectState_t;
 
+extern uint16_t VCP_DataTx   (uint8_t* Buf, uint32_t Len);
+
 static char hexStrings[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
 static const uint8_t channels[] = {0x14, 0x1e, 0x28, 0x32, 0x3c, 0x46, 0x50, 0x5a, 0x64, 0x6e, 0x78, 0x82};
@@ -40,9 +42,12 @@ static connectState_t state = COUNT1;
 static remoteState_t remoteState = IDLE;
 static uint8_t savedBestChannel = 0;
 static uint8_t packetBuff[256];
+static uint8_t strBuf[64];
 
 extern volatile uint32_t tickMs;
 static uint32_t rssiValues[sizeof(channels)];
+
+extern uint16_t VCP_DataTx (uint8_t* Buf, uint32_t Len);
 
 static void msDelay(uint32_t delay) {
 	uint32_t finishTime = tickMs + delay;
@@ -336,12 +341,17 @@ int32_t protoXProcess() {
 				a7105Read(FIFO_DATA, packetBuff, 16);
 				a7105Strobe(STROBE_RX);
 				
+				char *strPtr = (char *)strBuf;
+				
 				for(uint8_t x = 0; x < 16; x++) {
-					putchar(hexStrings[packetBuff[x] >> 4]);
-					putchar(hexStrings[packetBuff[x] & 0xF]);
-					putchar(' ');
+					*strPtr++ = hexStrings[packetBuff[x] >> 4];
+					*strPtr++ = hexStrings[packetBuff[x] & 0xF];
+					*strPtr++ = ' ';
 				}
-				putchar('\n');
+				*strPtr++ = '\n';
+				*strPtr = 0;
+
+				VCP_DataTx(strBuf, 49);
 			}
 
 			// Don't let the processor go to sleep while we're pairing
