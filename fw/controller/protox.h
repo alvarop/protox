@@ -11,6 +11,7 @@ void protoXCRCEnable(bool enabled);
 void protoXFindRemote();
 
 void protoXRemoteStart();
+void protoXRemoteForceStart();
 void protoXSetThrottle(uint8_t throttle);
 void protoXSetPitch(uint8_t pitch);
 void protoXSetYaw(uint8_t yaw);

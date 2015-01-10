@@ -171,6 +171,10 @@ void protoXRemoteStart() {
 	remoteState = SEND_PACKET;
 }
 
+void protoXRemoteForceStart() {
+	remoteState = RUNNING;
+}
+
 void protoXSnifferStart() {
 	remoteState = SNIFFER;	
 	a7105Strobe(STROBE_RX);

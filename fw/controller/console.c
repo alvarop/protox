@@ -61,24 +61,18 @@ static void remote(uint8_t argc, char *argv[]) {
 			if(strcmp("sniff", argv[1]) == 0) {
 				printf("Starting sniffer\n");
 				protoXSnifferStart();
-			}
-
-			if(strcmp("start", argv[1]) == 0) {
+			} else if(strcmp("hijack", argv[1]) == 0) {
+				protoXRemoteForceStart();
+			} else if(strcmp("start", argv[1]) == 0) {
 				printf("Starting remote");
 				protoXRemoteStart();
-			}
-
-			if(strcmp("crcon", argv[1]) == 0) {
+			} else if(strcmp("crcon", argv[1]) == 0) {
 				printf("CRC On\n");
 				protoXCRCEnable(true);
-			}
-
-			if(strcmp("crcoff", argv[1]) == 0) {
+			} else if(strcmp("crcoff", argv[1]) == 0) {
 				printf("CRC Off\n");
 				protoXCRCEnable(false);
-			}
-
-			if(strcmp("find", argv[1]) == 0) {
+			} else if(strcmp("find", argv[1]) == 0) {
 				protoXFindRemote();
 			}
 
