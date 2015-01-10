@@ -326,6 +326,7 @@ int32_t protoXProcess() {
 					searchChannel = 0;
 				}
 
+				savedBestChannel = searchChannel;
 				a7105SetChannel(channels[searchChannel]);
 				a7105Strobe(STROBE_RX);
 			}
