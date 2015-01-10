@@ -69,12 +69,12 @@ static void remote(uint8_t argc, char *argv[]) {
 			}
 
 			if(strcmp("crcon", argv[1]) == 0) {
-				printf("CRC On");
+				printf("CRC On\n");
 				protoXCRCEnable(true);
 			}
 
 			if(strcmp("crcoff", argv[1]) == 0) {
-				printf("CRC Off");
+				printf("CRC Off\n");
 				protoXCRCEnable(false);
 			}
 
