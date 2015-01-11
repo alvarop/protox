@@ -57,6 +57,8 @@ static const regSetting_t initialSettings[] = {
 	{RSCALE,					0x0f},
 };
 
+#define CS_PIN (0)
+
 int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 	// TODO - SPI RW wrBuff, rdBuff len+1
@@ -64,25 +66,25 @@ int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 	if(buff != NULL){
 		uint8_t *rxPtr = buff;
 
-		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
+		SPI_BiDirectionalLineConfig(SPI3, SPI_Direction_Tx);
 
-		GPIO_ResetBits(GPIOB, (1 << 11));
+		GPIO_ResetBits(GPIOD, (1 << CS_PIN));
 
-		SPI2->DR = addr | RD_BIT;
+		SPI3->DR = addr | RD_BIT;
 
 		// TODO - use interrupts and __WFI here
-		while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
+		while(!(SPI3->SR & SPI_I2S_FLAG_TXE));
 
-		while(SPI2->SR & SPI_I2S_FLAG_BSY);
+		while(SPI3->SR & SPI_I2S_FLAG_BSY);
 
-		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Rx);
+		SPI_BiDirectionalLineConfig(SPI3, SPI_Direction_Rx);
 
 		for(int32_t byte = 0; byte < len; byte++){
 			
-			SPI2->DR = 0x00; // Dummy write
-			while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
-			while(SPI2->SR & SPI_I2S_FLAG_BSY);
-			*rxPtr++ = SPI2->DR;
+			SPI3->DR = 0x00; // Dummy write
+			while(!(SPI3->SR & SPI_I2S_FLAG_TXE));
+			while(SPI3->SR & SPI_I2S_FLAG_BSY);
+			*rxPtr++ = SPI3->DR;
 		}
 
 		// TODO - figure out why it breaks if there's no delay
@@ -90,9 +92,9 @@ int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 			__asm("nop");
 		}
 
-		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
+		SPI_BiDirectionalLineConfig(SPI3, SPI_Direction_Tx);
 
-		GPIO_SetBits(GPIOB, (1 << 11));
+		GPIO_SetBits(GPIOD, (1 << CS_PIN));
 
 		for(uint32_t x = 0; x < 1000; x++) {
 			__asm("nop");
@@ -110,31 +112,31 @@ int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 int32_t a7105Write(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 	if(buff != NULL) {
-		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
+		SPI_BiDirectionalLineConfig(SPI3, SPI_Direction_Tx);
 
-		GPIO_ResetBits(GPIOB, (1 << 11));
+		GPIO_ResetBits(GPIOD, (1 << CS_PIN));
 
-		SPI2->DR = addr;
+		SPI3->DR = addr;
 
 		// TODO - use interrupts and __WFI here
-		while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
-		*(volatile uint16_t *)&SPI2->DR;
+		while(!(SPI3->SR & SPI_I2S_FLAG_TXE));
+		*(volatile uint16_t *)&SPI3->DR;
 
 		for(int32_t byte = 0; byte < len; byte++){
 			
-			SPI2->DR = buff[byte];
-			while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
-			*(volatile uint16_t *)&SPI2->DR;
+			SPI3->DR = buff[byte];
+			while(!(SPI3->SR & SPI_I2S_FLAG_TXE));
+			*(volatile uint16_t *)&SPI3->DR;
 		}
 
-		while(SPI2->SR & SPI_I2S_FLAG_BSY);
+		while(SPI3->SR & SPI_I2S_FLAG_BSY);
 
 		// TODO - figure out why it breaks if there's no delay
 		for(uint32_t x = 0; x < 100; x++) {
 			__asm("nop");
 		}
 
-		GPIO_SetBits(GPIOB, (1 << 11));
+		GPIO_SetBits(GPIOD, (1 << CS_PIN));
 
 		for(uint32_t x = 0; x < 1000; x++) {
 			__asm("nop");
@@ -160,24 +162,24 @@ uint8_t a7105ReadReg(uint8_t reg) {
 }
 
 int32_t a7105Strobe(uint8_t strobe) {
-		SPI_BiDirectionalLineConfig(SPI2, SPI_Direction_Tx);
+		SPI_BiDirectionalLineConfig(SPI3, SPI_Direction_Tx);
 
-		GPIO_ResetBits(GPIOB, (1 << 11));
+		GPIO_ResetBits(GPIOD, (1 << CS_PIN));
 
-		SPI2->DR = strobe;
+		SPI3->DR = strobe;
 
 		// TODO - use interrupts and __WFI here
-		while(!(SPI2->SR & SPI_I2S_FLAG_TXE));
-		*(volatile uint16_t *)&SPI2->DR;
+		while(!(SPI3->SR & SPI_I2S_FLAG_TXE));
+		*(volatile uint16_t *)&SPI3->DR;
 
-		while(SPI2->SR & SPI_I2S_FLAG_BSY);
+		while(SPI3->SR & SPI_I2S_FLAG_BSY);
 
 		// TODO - figure out why it breaks if there's no delay
 		for(uint32_t x = 0; x < 100; x++) {
 			__asm("nop");
 		}
 
-		GPIO_SetBits(GPIOB, (1 << 11));
+		GPIO_SetBits(GPIOD, (1 << CS_PIN));
 
 		for(uint32_t x = 0; x < 1000; x++) {
 			__asm("nop");
@@ -261,24 +263,25 @@ void a7105Init() {
 	
 	SPI_InitTypeDef spiConfig;
 
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
 	//
 	// GPIO Config
 	//
 
-	// PB11 - CS
-	// PB13 - SCK
-	// PB15 - MISO/MOSI (half-duplex mode)
-	GPIO_Init(GPIOB, &(GPIO_InitTypeDef){GPIO_Pin_11, GPIO_Mode_OUT, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
-	GPIO_Init(GPIOB, &(GPIO_InitTypeDef){GPIO_Pin_13, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
-	GPIO_Init(GPIOB, &(GPIO_InitTypeDef){GPIO_Pin_15, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
+	// PD0  - CS
+	// PC10 - SCK
+	// PC12 - MOSI/MISO (half-duplex mode)
+	GPIO_Init(GPIOD, &(GPIO_InitTypeDef){GPIO_Pin_0, GPIO_Mode_OUT, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
+	GPIO_Init(GPIOC, &(GPIO_InitTypeDef){GPIO_Pin_10, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
+	GPIO_Init(GPIOC, &(GPIO_InitTypeDef){GPIO_Pin_12, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
 
-	GPIO_PinAFConfig(GPIOB, GPIO_PinSource13, GPIO_AF_SPI2);
-	GPIO_PinAFConfig(GPIOB, GPIO_PinSource15, GPIO_AF_SPI2);
+	GPIO_PinAFConfig(GPIOC, GPIO_PinSource10, GPIO_AF_SPI3);
+	GPIO_PinAFConfig(GPIOC, GPIO_PinSource12, GPIO_AF_SPI3);
 
-	GPIO_SetBits(GPIOB, (1 << 11)); // Disable PB11, since it's active low
+	GPIO_SetBits(GPIOD, (1 << CS_PIN)); // Disable CS, since it's active low
 
 	//
 	// SPI Config
@@ -288,13 +291,13 @@ void a7105Init() {
 	spiConfig.SPI_Direction = SPI_Direction_1Line_Tx;
 	spiConfig.SPI_Mode = SPI_Mode_Master;
 	spiConfig.SPI_NSS = SPI_NSS_Soft;
-	spiConfig.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32; // (APB2PCLK == 42MHz)/128 = 328125 Hz
+	spiConfig.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32; // (APB2PCLK == 42MHz)/32 = 1312500 Hz
 
-	SPI_I2S_DeInit(SPI2);
+	SPI_I2S_DeInit(SPI3);
 
-	SPI_Init(SPI2, &spiConfig);
+	SPI_Init(SPI3, &spiConfig);
 
-	SPI_Cmd(SPI2, ENABLE);
+	SPI_Cmd(SPI3, ENABLE);
 
 	// Device Reset
 	a7105WriteReg(MODE, 0x00);
