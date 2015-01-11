@@ -25,7 +25,7 @@ typedef struct {
 	uint8_t unknown9;
 } __attribute__((packed)) controlPacket_t;
 
-typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING, FIND_REMOTE, SNIFFER} remoteState_t;
+typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING, FIND_REMOTE, SNIFFER, HIJACKING} remoteState_t;
 typedef enum {COUNT1, COUNT2, COUNT3} connectState_t;
 
 extern uint16_t VCP_DataTx   (uint8_t* Buf, uint32_t Len);
@@ -177,7 +177,7 @@ void protoXRemoteStart() {
 }
 
 void protoXRemoteForceStart() {
-	remoteState = RUNNING;
+	remoteState = HIJACKING;
 }
 
 void protoXSnifferStart() {
@@ -191,7 +191,7 @@ void protoXSetId(uint8_t *id) {
 
 void protoXSetCh(uint8_t ch) {
 	if(ch < sizeof(channels)) {
-		a7105SetChannel(channels[ch]);	
+		a7105SetChannel(channels[ch]);
 	}
 }
 
@@ -359,6 +359,35 @@ int32_t protoXProcess() {
 			stopWFI = 1;
 			break;
 		}
+
+		case HIJACKING: {
+
+			GPIO_SetBits(GPIOD, GPIO_Pin_13);
+			if(tickMs >= timeout){
+				timeout = tickMs + 5;
+
+				if(channelRefresh) {
+					channelRefresh = 0;
+					a7105SetChannel(channels[savedBestChannel]);
+					timeToCHSwitch = tickMs + 50;
+				} else if(tickMs >= timeToCHSwitch) {
+					a7105SetChannel(0xA5);
+					channelRefresh = 1;
+				}
+
+				protoXSendPacket((uint8_t *)&controlPacket, 15);
+			} else if ((a7105ReadReg(MODE) & MODE_TRER) == 0) {
+				a7105Strobe(STROBE_FIFO_RD_RST);
+				a7105Read(FIFO_DATA, packetBuff, 16);
+				a7105Strobe(STROBE_RX);
+			}
+
+			// We're dealing with 10 ms timings, so waking up on systick should be ok
+			stopWFI = 0;
+
+			break;
+		}
+
 	}
 
 	return stopWFI;
