@@ -17,8 +17,8 @@ static const regSetting_t initialSettings[] = {
 	{RC_OSC_II,					0x00},
 	{RC_OSC_III,				0x04},
 	{CKO_PIN_CTL,				0x00},
-	{GIO1_PIN_CTL_I,			0x01},
-	{GIO2_PIN_CTL_II,			0x01},
+	{GIO1_PIN_CTL_I,			0x0D}, // GIO1 - PMDO (Preamble detect output)
+	{GIO2_PIN_CTL_II,			0x00},
 	{CLOCK,						0x05},
 	{DATA_RATE,					0x04},
 	{PLL_I,						0x50},
@@ -275,6 +275,7 @@ void a7105Init() {
 	// PC10 - SCK
 	// PC12 - MOSI/MISO (half-duplex mode)
 	GPIO_Init(GPIOD, &(GPIO_InitTypeDef){GPIO_Pin_0, GPIO_Mode_OUT, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
+	GPIO_Init(GPIOD, &(GPIO_InitTypeDef){GPIO_Pin_2, GPIO_Mode_IN, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
 	GPIO_Init(GPIOC, &(GPIO_InitTypeDef){GPIO_Pin_10, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
 	GPIO_Init(GPIOC, &(GPIO_InitTypeDef){GPIO_Pin_12, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
 
