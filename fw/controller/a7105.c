@@ -87,16 +87,11 @@ int32_t a7105Read(uint8_t addr, uint8_t *buff, uint8_t len) {
 			*rxPtr++ = SPI3->DR;
 		}
 
-		// TODO - figure out why it breaks if there's no delay
-		for(uint32_t x = 0; x < 100; x++) {
-			__asm("nop");
-		}
-
 		SPI_BiDirectionalLineConfig(SPI3, SPI_Direction_Tx);
 
 		GPIO_SetBits(GPIOD, (1 << CS_PIN));
 
-		for(uint32_t x = 0; x < 1000; x++) {
+		for(uint32_t x = 0; x < 500; x++) {
 			__asm("nop");
 		}
 
@@ -131,14 +126,9 @@ int32_t a7105Write(uint8_t addr, uint8_t *buff, uint8_t len) {
 
 		while(SPI3->SR & SPI_I2S_FLAG_BSY);
 
-		// TODO - figure out why it breaks if there's no delay
-		for(uint32_t x = 0; x < 100; x++) {
-			__asm("nop");
-		}
-
 		GPIO_SetBits(GPIOD, (1 << CS_PIN));
 
-		for(uint32_t x = 0; x < 1000; x++) {
+		for(uint32_t x = 0; x < 500; x++) {
 			__asm("nop");
 		}
 
