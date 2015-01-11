@@ -230,8 +230,8 @@ def processCommand(command):
 		writeThread.write('init\n')
 		# writeThread.write('remote crcoff\n')
 		writeThread.write('remote find\n')
-	elif command == 'hijack':
-		writeThread.write('remote t 0\n')
+	elif command == 'h':
+		writeThread.write('remote t 2\n')
 		writeThread.write('remote hijack\n')
 	else:
 		print('unknown command \'' + command + '\'')
