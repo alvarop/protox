@@ -235,6 +235,7 @@ int32_t protoXProcess() {
 	static uint32_t timeout = 0;
 	static uint32_t timeToCHSwitch = 0;
 	static uint32_t channelRefresh = 0;
+	static int32_t oldInt;
 	uint32_t stopWFI = 0;
 
 	switch(remoteState) {
@@ -260,7 +261,6 @@ int32_t protoXProcess() {
 		}
 
 		case WAIT_FOR_REPLY: {
-			static int32_t oldInt;
 			int32_t newInt = GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2); // PD2 is connected to GIO1
 			// TODO - Use interrupts and flags instead of polling
 
@@ -312,8 +312,12 @@ int32_t protoXProcess() {
 		}
 
 		case FIND_REMOTE: {
+			
+			int32_t newInt = GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2); // PD2 is connected to GIO1
+			// TODO - Use interrupts and flags instead of polling
 
-			if ((a7105ReadReg(MODE) & MODE_TRER) == 0) {
+			// Heard it!
+			if ((newInt == 0) && (oldInt == 1) && (a7105ReadReg(MODE) & MODE_TRER) == 0) {
 				a7105Strobe(STROBE_FIFO_RD_RST);
 				a7105Read(FIFO_DATA, packetBuff, 16);
 				
@@ -335,6 +339,8 @@ int32_t protoXProcess() {
 				a7105SetChannel(channels[searchChannel]);
 				a7105Strobe(STROBE_RX);
 			}
+
+			oldInt = newInt;
 			
 			stopWFI = 1;
 			break;
