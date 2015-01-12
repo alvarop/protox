@@ -155,15 +155,28 @@ def searching(line):
 	global ch
 
 	if line.startswith('Found remote in ch'):
+		sys.stdout.write('searching - ')
+		sys.stdout.write(line)
+
 		ch = line.split()[4]
-		print('Found remote in ch ' + ch + '. Starting sniffer')
+		print('Starting sniffer')
 		stateFn = sniffing
 		writeThread.write('remote sniff\n')
 	else:
 		sys.stdout.write('searching - ')
 		sys.stdout.write(line)
 
-stateFn = searching
+
+def radioInit(line):
+	global stateFn
+
+	if line.startswith('Best channel is'):
+		stateFn = searching
+		writeThread.write('remote find\n')
+
+	sys.stdout.write('radioInit - ' + line)
+
+stateFn = radioInit
 
 def processLine(line):
 	stateFn(line)
@@ -224,12 +237,12 @@ def processCommand(command):
 	command = command.rstrip()
 	if command == 'reset':
 		print('Reset!')
-		stateFn = searching
+		stateFn = radioInit
 		quadCount = 0
 		remoteCount = 0
 		writeThread.write('init\n')
 		# writeThread.write('remote crcoff\n')
-		writeThread.write('remote find\n')
+		
 	elif command == 'h':
 		writeThread.write('remote t 2\n')
 		writeThread.write('remote hijack\n')
@@ -260,7 +273,6 @@ writeThread.start()
 
 writeThread.write('init\n')
 # writeThread.write('remote crcoff\n')
-writeThread.write('remote find\n')
 
 while 1:
 	sys.stdout.write('> ')
