@@ -347,8 +347,13 @@ int32_t protoXProcess() {
 		}
 
 		case SNIFFER: {
+
+			int32_t newInt = GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2); // PD2 is connected to GIO1
+			// TODO - Use interrupts and flags instead of polling
+
 			// Heard it!
-			if ((a7105ReadReg(MODE) & MODE_TRER) == 0) {
+			if ((newInt == 0) && (oldInt == 1) && (a7105ReadReg(MODE) & MODE_TRER) == 0) {
+
 				a7105Strobe(STROBE_FIFO_RD_RST);
 				a7105Read(FIFO_DATA, packetBuff, 16);
 				a7105Strobe(STROBE_RX);
@@ -365,6 +370,8 @@ int32_t protoXProcess() {
 
 				VCP_DataTx(strBuf, 49);
 			}
+
+			oldInt = newInt;
 
 			// Don't let the processor go to sleep while we're pairing
 			stopWFI = 1;
