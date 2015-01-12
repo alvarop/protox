@@ -63,6 +63,9 @@ static void remote(uint8_t argc, char *argv[]) {
 				protoXSnifferStart();
 			} else if(strcmp("hijack", argv[1]) == 0) {
 				protoXRemoteForceStart();
+			} else if(strcmp("dos", argv[1]) == 0) {
+				printf("Starting DOS\n");
+				protoXRemoteDOS();
 			} else if(strcmp("start", argv[1]) == 0) {
 				printf("Starting remote\n");
 				protoXRemoteStart();

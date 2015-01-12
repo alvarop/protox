@@ -246,6 +246,10 @@ def processCommand(command):
 	elif command == 'h':
 		writeThread.write('remote t 2\n')
 		writeThread.write('remote hijack\n')
+
+	elif command == 'd':
+		writeThread.write('remote t 2\n')
+		writeThread.write('remote dos\n')
 	else:
 		print('unknown command \'' + command + '\'')
 # 
