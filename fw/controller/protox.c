@@ -317,7 +317,7 @@ int32_t protoXProcess() {
 				a7105Strobe(STROBE_FIFO_RD_RST);
 				a7105Read(FIFO_DATA, packetBuff, 16);
 				
-				if(protoXChecksum(packetBuff, 16) == 0) {
+				if((packetBuff[0] != 0) && (protoXChecksum(packetBuff, 16) == 0)) {
 					printf("Found remote in ch %d\n", searchChannel);
 					remoteState = IDLE;
 				}
