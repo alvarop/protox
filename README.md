@@ -10,13 +10,20 @@ This project was inspired by [@scanlime](https://twitter.com/scanlime)'s awesome
 
 ### Current Status
 #### Super Current
+I now have a fully functional sniffer. At the moment, scans all channels (like the quad) until it hears the remote. It then follows the pairing with the quad and decodes control packets live.
+
+As far as hijacking another quad, I'm making progress, but not enough. I am able to do a simple Denial-of-service by just flooding the channel with packets. This causes the quad to stop receiving commands which can be entertaining. An important note is that this only works with the little remotes. The large hubsan one seems to have better antennas or something, because it refuses to go down.
+
+The goal is to be able to not only prevent the quad from receiving commands from the remote, but inject a different command in order to take control. So far I haven't had much luck. Sometimes I'm able to intermittently get malicious commands through, but not reliably. To start, I'm trying to turn off the remote and 'resume' control on my own. For some reason the quad just gets CRC errors and never actually receives my commands. 
+
+#### Used to be Current
 I screwed up and thought they used encryption. They do write to the data whitening/encryption register during pairing, but only to enable CRC on the radio! This means listening in (and possibly jumping in) is much easier than I previously thought.
 
 I've added a bunch of packet sniffing features to the firmware. It will now scan all channels until it finds a remote transmitting. It won't be able to follow the entire conversation unless it has a matching device ID, so there's a command to set that. There's also one to enable/disable CRC on the radio, so it can listen before and after pairing.
 
 When I get a chance, I should be able to set the ID from the conversation it's sniffing and automatically follow the pairing process and change settings accordingly. Another fun feature to add will be capturing an already started conversation and figure out what the ID is to properly set it.
 
-#### Used to be Current
+#### Not So Current
 We have control!!! I gave up waiting for the radio modules to arrive, so instead I removed the STM8 microcontroller from one of the remotes and connected an STM32F4 to it instead. Well, just the SPI lines that go to the radio... After a day of fighting with the half-duplex SPI code, I managed to get pairing working. Turns out the remote changes its own ID to match the quad's and enables ~~encryption~~ radio CRC after pairing. 
 
 ![Hijacked Remote](/images/IMG_2354.jpg)
@@ -27,7 +34,7 @@ I wrote a quick app to send commands to the remote. Since I was in a rush, I re-
 
 I spent some more time with the app to make it more useable. The throttle and yaw/rotation are controlled with the keyboard (standard WASD controls) and pitch/roll is still controlled by the mouse. While I was able to fly the quadcopter, I wouldn't recommend using a mouse and keyboard setup to do it. You can [see the app in action here](https://www.youtube.com/watch?v=BfARBlWldN0).
 
-#### Not So Current
+#### Old News
 I am able to capture SPI data going between the STM8 microcontroller and the A7105 with my Saleae Logic analyzer. I export the SPI capture data to CSV and use a [python script](quadcsv.py) to process it into 'packets'. You can see an example processed capture [here](processeddata/connect2.processed.txt).
 
 After what seemed an eternity, I was able to solder some wires to sniff the SPI data on the quadcopter itself. The microscope came in handy while trying to solder tiny wires on to pins on a QFN device. This allows me to capture both radio streams simultaneously and get a complete picture of what exactly goes on during pairing and operation. A processed packet capture with both the remote and quad data can be found [here](processeddata/dual-capture.decoded.txt).
@@ -60,6 +67,8 @@ See [a7105.py](a7105.py) for python module that decodes A7105 SPI packets into r
 See [checksum.py](checksum.py) for packet checksum computation and explanation.
 
 See [quadcsv.py](quadcsv.py) for script to process Saleae Logic SPI CSV data into more manageable chunks
+
+See [snifftest.py](snifftest.py) for python script that runs the sniffer and displays information about packets in the air. It can also enable the DOS and 'hijack' features.
 
 See the [fw/controller](fw/controller) directory for the STM32F4 firmware I'm using to bridge between the radio and computer (via USB)
 
