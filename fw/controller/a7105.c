@@ -259,10 +259,10 @@ void a7105Init() {
 	// PD0  - CS
 	// PC10 - SCK
 	// PC12 - MOSI/MISO (half-duplex mode)
-	GPIO_Init(GPIOD, &(GPIO_InitTypeDef){GPIO_Pin_0, GPIO_Mode_OUT, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
-	GPIO_Init(GPIOD, &(GPIO_InitTypeDef){GPIO_Pin_2, GPIO_Mode_IN, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
-	GPIO_Init(GPIOC, &(GPIO_InitTypeDef){GPIO_Pin_10, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
-	GPIO_Init(GPIOC, &(GPIO_InitTypeDef){GPIO_Pin_12, GPIO_Mode_AF, GPIO_OType_PP, GPIO_Speed_50MHz, GPIO_PuPd_NOPULL});
+	GPIO_Init(GPIOD, &(GPIO_InitTypeDef){GPIO_Pin_0, GPIO_Mode_OUT, GPIO_Speed_50MHz, GPIO_OType_PP, GPIO_PuPd_NOPULL});
+	GPIO_Init(GPIOD, &(GPIO_InitTypeDef){GPIO_Pin_2, GPIO_Mode_IN, GPIO_Speed_50MHz, GPIO_OType_PP, GPIO_PuPd_NOPULL});
+	GPIO_Init(GPIOC, &(GPIO_InitTypeDef){GPIO_Pin_10, GPIO_Mode_AF, GPIO_Speed_50MHz, GPIO_OType_PP, GPIO_PuPd_NOPULL});
+	GPIO_Init(GPIOC, &(GPIO_InitTypeDef){GPIO_Pin_12, GPIO_Mode_AF, GPIO_Speed_50MHz, GPIO_OType_PP, GPIO_PuPd_NOPULL});
 
 	GPIO_PinAFConfig(GPIOC, GPIO_PinSource10, GPIO_AF_SPI3);
 	GPIO_PinAFConfig(GPIOC, GPIO_PinSource12, GPIO_AF_SPI3);
